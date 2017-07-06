@@ -5464,7 +5464,8 @@ dl.no_members {
 /* This one does 1024 screens at default font size. */
 @media screen and (max-width: 64em) {
 	.topic_info {
-		width: 60%;
+		width: 55%;
+		overflow: hidden;
 	}
 
 	.topic_latest {
@@ -5526,6 +5527,10 @@ dl.no_members {
 	#news {
 		clear: left;
 	}
+
+	.button_title {
+		font-size: .9em;
+	}
 }
 
 /* This one does 880 screens at default font size. */
@@ -5548,6 +5553,9 @@ dl.no_members {
 
 /* This one does 800 screens at default font size. */
 @media screen and (max-width: 50em) {
+	.breadcrumb {
+		clear: both;
+	}
 
 	.listlevel1.subsections .linklevel1:after {
 		display: none;
@@ -5843,7 +5851,7 @@ dl.no_members {
 
 	.sticky_row > .topic_info > .topic_starter,
 	.locked_row > .topic_info > .topic_starter {
-		margin-left: 18px;
+		margin-left: 0px;
 	}
 
 	.sticky_row.locked_row > .topic_info > .topic_starter {
@@ -5872,6 +5880,10 @@ dl.no_members {
 
 /* This one does 540 and smaller screens at default font size. */
 @media screen and (max-width: 33.750em) {
+	#theme_selector {
+		display: none;
+	}
+
 	.category_header {
 		white-space: nowrap;
 	}
@@ -5884,6 +5896,7 @@ dl.no_members {
 
 	#menu_nav_scroll {
 		height: 45px;
+		margin-top: -10px;
 	}
 
 	select, .input_text, .input_password {
@@ -5949,7 +5962,7 @@ dl.no_members {
 	}
 
 	.sticky_row .topic_info:before, .locked_row .topic_info:before, .locked_row.sticky_row .topic_info:before {
-		margin: 28px 0 0 0;
+		margin: 2px 0 0 0;
 	}
 
 	.topic_icons, .topic_moderation {
@@ -6019,6 +6032,7 @@ dl.no_members {
 
 	.attachments {
 		clear: both;
+		margin-top: 2em;
 	}
 
 	.attachment_block {
@@ -6296,6 +6310,10 @@ dl.no_members {
 		display: none;
 	}
 
+	.quoteheader {
+		overflow: auto
+	}
+
 	.forumposts .windowbg, .forumposts .windowbg2 {
 		margin-bottom: 6px;
 	}
@@ -6484,9 +6502,12 @@ dl.no_members {
 		margin: 2px 1px !important;
 	}
 
-	.navigate_section {
-		padding-right: 5px;
-		clear: both;
+	.navigate_section li {
+		display: none;
+	}
+
+	.navigate_section >li:first-child, .navigate_section li:nth-last-child(2) {
+		display: block;
 	}
 
 	.navigate_section li > a:before, .navigate_section li > a:after {
