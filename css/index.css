@@ -2292,7 +2292,7 @@ dl.settings {
 }
 
 .board_latest {
-	padding: 0 14px;
+	padding: 0 0 0 14px;
 	width: 25%;
 	min-width: 21em;
 }
@@ -2326,7 +2326,7 @@ dl.settings {
 .board_stats {
 	position: absolute;
 	top: 50%;
-	right: 345px;
+	right: 21em;
 	margin-top: -2em;
 }
 
@@ -5042,8 +5042,8 @@ a.help .icon {
 	font-weight: bold;
 	line-height: 2em;
 	min-width: 4em;
-	background: #D41745;
-	color: #FFFFFD;
+	background: #334455;
+	color: #ffffff;
 }
 
 .mlist_header {
@@ -5553,6 +5553,10 @@ dl.no_members {
 
 /* This one does 800 screens at default font size. */
 @media screen and (max-width: 50em) {
+	#theme_selector {
+		display: none;
+	}
+
 	.breadcrumb {
 		clear: both;
 	}
@@ -5880,10 +5884,6 @@ dl.no_members {
 
 /* This one does 540 and smaller screens at default font size. */
 @media screen and (max-width: 33.750em) {
-	#theme_selector {
-		display: none;
-	}
-
 	.category_header {
 		white-space: nowrap;
 	}
