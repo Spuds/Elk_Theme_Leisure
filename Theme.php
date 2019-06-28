@@ -15,7 +15,7 @@
  *
  */
 
-namespace Themes\elk_theme_leisureTheme;
+namespace Themes\elk_theme_leisure_11Theme;
 
 /**
  * Class Theme
