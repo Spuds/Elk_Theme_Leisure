@@ -5,13 +5,11 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.3
+ * @version 1.1.4
  *
  */
 
@@ -72,11 +70,13 @@ function template_boardindex_outer_above()
 
 	// Show some statistics if info centre stats is off.
 	if (!$settings['show_stats_index'])
+	{
 		echo '
 		<div id="index_common_stats">
 			', $txt['members'], ': ', $context['common_stats']['total_members'], ' &nbsp;&#8226;&nbsp; ', $txt['posts_made'], ': ', $context['common_stats']['total_posts'], ' &nbsp;&#8226;&nbsp; ', $txt['topics_made'], ': ', $context['common_stats']['total_topics'], '<br />
 			', $settings['show_latest_member'] ? ' ' . sprintf($txt['welcome_newest_member'], ' <strong>' . $context['common_stats']['latest_member']['link'] . '</strong>') : '', '
 		</div>';
+	}
 }
 
 /**
@@ -88,7 +88,7 @@ function template_boardindex_outer_below()
 
 	// The key line, new posts, no new posts, etc
 	echo '
-		<div id="posting_icons">';
+		<aside id="posting_icons">';
 
 	// Show the mark all as read button?
 	if ($settings['show_mark_read'] && !$context['user']['is_guest'] && !empty($context['categories']))
@@ -102,7 +102,7 @@ function template_boardindex_outer_below()
 	echo '
 			<p class="board_key new_none_board" title="', $txt['old_posts'], '">', $txt['old_posts'], '</p>
 			<p class="board_key new_redirect_board" title="', $txt['redirect_board'], '">', $txt['redirect_board'], '</p>
-		</div>';
+		</aside>';
 
 	if (!empty($context['info_center_callbacks']))
 		template_info_center();

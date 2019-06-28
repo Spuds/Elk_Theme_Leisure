@@ -5,13 +5,11 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.7
+ * @version 1.1
  *
  */
 
@@ -85,7 +83,7 @@ function optimizeBoardsSubdivision($categories, $total_boards)
 /**
  * Main template for displaying the list of boards
  *
- * @param int $boards
+ * @param array $boards
  * @param string $id
  */
 function template_list_boards($boards, $id)
@@ -153,9 +151,7 @@ function template_list_boards($boards, $id)
 		if (!empty($board['last_post']['id']))
 		{
 			echo '
-						<p class="board_lastpost">';
-
-			echo '
+						<p class="board_lastpost">
 							', $board['last_post']['last_post_message'], '
 						</p>';
 		}
@@ -221,13 +217,13 @@ function template_pick_boards($form_name, $input_names = 'brd', $select_all = tr
 
 	if ($select_all)
 		echo '
-						<h2 class="secondary_header">
+						<h3 class="secondary_header">
 							<span id="category_toggle">&nbsp;
 								<span id="advanced_panel_toggle" class="', $context['boards_check_all'] ? 'expand' : 'collapse', '" style="display: none;" title="', $txt['hide'], '"></span>
 							</span>
 							<a href="#" id="advanced_panel_link">', $txt['choose_board'], '</a>
-						</h2>
-						<div id="advanced_panel_div"', $context['boards_check_all'] ? ' style="display: none;"' : '', '>';
+						</h3>
+						<div id="advanced_panel_div"', $context['boards_check_all'] ? ' class="hide"' : '', '>';
 
 	// Make two nice columns of boards, link each category header to toggle select all boards in each
 	$group_cats = optimizeBoardsSubdivision($context['boards_in_category'], $context['num_boards']);
@@ -249,7 +245,7 @@ function template_pick_boards($form_name, $input_names = 'brd', $select_all = tr
 				echo '
 										<li class="board" style="margin-', $context['right_to_left'] ? 'right' : 'left', ': ', $board['child_level'], 'em;">
 											<label for="', $input_names, $board['id'], '">
-												<input type="checkbox" id="', $input_names, $board['id'], '" name="', $input_names, '[', $board['id'], ']" value="', $board['id'], '"', $board['selected'] ? ' checked="checked"' : '', ' class="input_check" /> ', $board['name'], '
+												<input type="checkbox" id="', $input_names, $board['id'], '" name="', $input_names, '[', $board['id'], ']" value="', $board['id'], '"', $board['selected'] ? ' checked="checked"' : '', ' /> ', $board['name'], '
 											</label>
 										</li>';
 			}
@@ -269,7 +265,7 @@ function template_pick_boards($form_name, $input_names = 'brd', $select_all = tr
 						</div>
 						<div class="submitbutton">
 							<span class="floatleft">
-								<input type="checkbox" name="all" id="check_all" value=""', $context['boards_check_all'] ? ' checked="checked"' : '', ' onclick="invertAll(this, this.form, \'', $input_names, '\');" class="input_check" />
+								<input type="checkbox" name="all" id="check_all" value=""', $context['boards_check_all'] ? ' checked="checked"' : '', ' onclick="invertAll(this, this.form, \'', $input_names, '\');" />
 								<label for="check_all">
 									<em> ', $txt['check_all'], '</em>
 								</label>

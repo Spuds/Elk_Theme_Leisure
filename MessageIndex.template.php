@@ -5,13 +5,11 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.7
+ * @version 1.1.4
  *
  */
 
@@ -31,15 +29,15 @@ function template_display_child_boards_above()
 	global $context, $txt;
 
 	echo '
-	<div id="board_', $context['current_board'], '_childboards" class="forum_category">
-		<h2 class="category_header">
+		<header class="category_header">
 			', $txt['parent_boards'], '
-		</h2>';
+		</header>
+	<section id="board_', $context['current_board'], '_childboards" class="forum_category">';
 
 	template_list_boards($context['boards'], 'board_' . $context['current_board'] . '_children');
 
 	echo '
-	</div>';
+	</section>';
 }
 
 /**
@@ -58,7 +56,7 @@ function template_topic_listing_above()
 	template_pagesection('normal_buttons', 'right');
 
 	echo '
-		<div id="description_board">
+		<header id="description_board">
 			<h1 class="category_header">', $context['name'], '</h1>
 			<div class="generalinfo">';
 
@@ -113,7 +111,7 @@ function template_topic_listing_above()
 					</ul>
 				</div>
 			</div>
-		</div>';
+		</header>';
 }
 
 /**
@@ -121,7 +119,7 @@ function template_topic_listing_above()
  */
 function template_topic_listing()
 {
-	global $context, $settings, $options, $scripturl, $txt, $modSettings;
+	global $context, $settings, $options, $scripturl, $txt;
 
 	if (!$context['no_topic_listing'])
 	{
@@ -200,21 +198,23 @@ function template_topic_listing()
 				<span id="category_toggle">&nbsp;
 					<span id="upshrink_bid" class="', empty($context['minmax_preferences'][$minmax_key]) ? 'collapse' : 'expand', '" style="display: none;" title="', $txt['hide'], '"></span>
 				</span>
-				Sticky Threads
+				Sticky Topics
 			</h2>
 			<ul class="topic_listing" id="messageindex_pinned_div">';
 				$pinned++;
 			}
+			// If we had sticky topics, then set a header to show where regular ones start
 			else if ($normal === 1 && $pinned !== 0)
 			{
 				echo ' 
  			</ul>
  		</section>
  		<section id="index_normal">
-			<h2 class="secondary_header">Normal Threads</h2>
+			<h2 class="secondary_header">Regular Topics</h2>
  			<ul class="topic_listing" id="messageindex">';
 				$normal++;
 			}
+			// No stickies, make a normal thread index with no header
 			else if ($normal === 1 && $pinned === 0)
 			{
 				echo ' 
@@ -225,15 +225,23 @@ function template_topic_listing()
 
 			// The topic itself, done as 3 table columns designed in a li
 			echo '
-			<li class="', $color_class, '">
+			<li class="', $color_class, $topic['new'] ? ' new' : '', '">
 				<section class="topic_info">';
 
 			// Showing avatars on the index
 			if (!empty($settings['avatars_on_indexes']))
 				echo '
 					<div class="board_avatar', ($topic['is_posted_in'] ? ' fred' : ''), '">
-						<a href="', $topic['last_post']['member']['href'], '">
-							<img class="avatar" src="', $topic['last_post']['member']['avatar']['href'], '" alt="" />
+						<a href="', $topic['last_post']['member']['href'], '">';
+
+				if (!empty($topic['last_post']['member']['avatar']['href']))
+					echo '
+							<img class="avatar" src="', $topic['last_post']['member']['avatar']['href'], '" alt="" />';
+				else
+					echo '
+							<img class="avatar" src="', $settings['images_url'] . '/default_avatar.png', '" alt="" />';
+
+				echo '
 						</a>
 					</div>';
 
@@ -297,7 +305,7 @@ function template_topic_listing()
 							<span class="stats_type">', $txt['views'], '</span>
 						</li>
 					</ul>
-					<div class="topic_lastpost lighter">', 
+					<div class="topic_lastpost lighter">',
 						$txt['last_post'], ' ', $txt['by'], ' ', $topic['last_post']['member']['link'], '<br />',
 						$topic['last_post']['html_time'], '
 					</div>
@@ -418,14 +426,14 @@ function template_topic_listing_below()
 	theme_linktree();
 
 	echo '
-	<div id="topic_icons" class="description">
+	<footer id="topic_icons" class="description">
 		<div class="qaction_row" id="message_index_jump_to">&nbsp;</div>';
 
 	if (!$context['no_topic_listing'])
 		template_basicicons_legend();
 
 	echo '
-			<script><!-- // --><![CDATA[';
+			<script>';
 
 	if (!empty($context['using_relative_time']))
 		echo '
@@ -441,7 +449,7 @@ function template_topic_listing_below()
 					iCurBoardChildLevel: ', $context['jump_to']['child_level'], ',
 					sCurBoardName: "', $context['jump_to']['board_name'], '",
 					sBoardChildLevelIndicator: "&#8195;",
-					sBoardPrefix: "', isBrowser('ie8') ? '&#187; ' : '&#10148; ', '",
+					sBoardPrefix: "&#10148;",
 					sCatClass: "jump_to_header",
 					sCatPrefix: "",
 					bNoRedirect: true,
@@ -457,20 +465,20 @@ function template_topic_listing_below()
 					iCurBoardChildLevel: ', $context['jump_to']['child_level'], ',
 					sCurBoardName: "', $context['jump_to']['board_name'], '",
 					sBoardChildLevelIndicator: "&#8195;",
-					sBoardPrefix: "', isBrowser('ie8') ? '&#187; ' : '&#10148; ', '",
+					sBoardPrefix: "&#10148;",
 					sCatPrefix: "",
 					sCatClass: "jump_to_header",
 					sGoButtonLabel: "', $txt['quick_mod_go'], '"
 				});
-			// ]]></script>
-	</div>';
+			</script>
+	</footer>';
 
 	// Javascript for inline editing.
 	echo '
-	<script><!-- // --><![CDATA[
+	<script>
 		var oQuickModifyTopic = new QuickModifyTopic({
 			aHidePrefixes: Array("lockicon", "stickyicon", "pages", "newicon"),
-			bMouseOnDiv: false,
+			bMouseOnDiv: false
 		});
-	// ]]></script>';
+	</script>';
 }

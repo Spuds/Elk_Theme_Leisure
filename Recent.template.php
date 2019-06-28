@@ -5,18 +5,16 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.3
+ * @version 1.1
  *
  */
 
 /**
- * We need some help to proprerly display things
+ * We need some help to properly display things
  */
 function template_Recent_init()
 {
@@ -38,7 +36,7 @@ function template_recent()
 
 	foreach ($context['posts'] as $post)
 	{
-		$post['class'] = $post['alternate'] == 0 ? 'windowbg' : 'windowbg2';
+		$post['class'] = 'content';
 		$post['title'] = $post['board']['link'] . ' / ' . $post['link'];
 		$post['date'] = $txt['last_post'] . ' ' . $txt['by'] . ' <strong>' . $post['poster']['link'] . ' </strong> - ' . $post['html_time'];
 
@@ -52,9 +50,9 @@ function template_recent()
 
 	if (!empty($context['using_relative_time']))
 		echo '
-		<script><!-- // --><![CDATA[
+		<script>
 			$(\'.topic_latest\').addClass(\'relative\');
-		// ]]></script>';
+		</script>';
 }
 
 /**
@@ -72,21 +70,22 @@ function template_unread()
 
 		if ($context['showCheckboxes'])
 			echo '
-					<form action="', $scripturl, '?action=quickmod" method="post" accept-charset="UTF-8" name="quickModForm" id="quickModForm" style="margin: 0;">
+					<form id="quickModForm" action="', $scripturl, '?action=quickmod" method="post" accept-charset="UTF-8" name="quickModForm" style="margin: 0;">
 						<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" />
 						<input type="hidden" name="qaction" value="markread" />
 						<input type="hidden" name="redirect_url" value="action=unread', (!empty($context['showing_all_topics']) ? ';all' : ''), $context['querystring_board_limits'], '" />';
 
 		echo '
 						<h2 class="category_header" id="unread_header">
-							', $context['showing_all_topics'] ? $txt['unread_topics_all'] : $txt['unread_topics_visit'];
+							', $context['showing_all_topics'] ? $txt['unread_topics_all'] : $txt['unread_topics_visit'], '
+						</h2>';
 
 		// Sort topics mumbo-jumbo
 		$fa_key = array('subject' => 'text-width', 'starter'  => 'user', 'last_poster'  => 'users', 'replies'  => 'comments-o',
 						'views'  => 'eye', 'likes'  => 'thumbs-o-up', 'first_post'  => 'clock-o', 'last_post'  => 'calendar-o');
 
 		echo '
-					<ul id="sort_by" class="topic_sorting">
+					<ul id="recent_sort_by" class="topic_sorting">
 						<li>', $txt['sort_by'], ':</li>';
 
 		foreach ($context['topics_headers'] as $key => $value)
@@ -96,15 +95,16 @@ function template_unread()
 								<i class="fa fa-', $fa_key[$key], ($context['sort_by'] === $key ? ' sort_active' : ''), '" title="', $txt[$key], '"></i>
 							</a>
 						</li>';
-						
+
+		// Show a "select all" box for quick moderation?
 		if ($context['showCheckboxes'])
 			echo '
 						<li class="quickmod_select_all">
 							<input type="checkbox" onclick="invertAll(this, document.getElementById(\'quickModForm\'), \'topics[]\');" class="input_check" />
-						</li>';						
-		
+						</li>';
+
 		echo '		</ul>
-				</h2>
+				
 						<ul class="topic_listing" id="unread">';
 
 		foreach ($context['topics'] as $topic)
@@ -209,7 +209,7 @@ function template_replies()
 		echo '
 						<h2 class="category_header" id="unread_header">
 							', $txt['unread_replies'];
-		
+
 		// Sort topics mumbo-jumbo
 		$fa_key = array('subject' => 'text-width', 'starter'  => 'user', 'last_poster'  => 'users', 'replies'  => 'comments-o',
 						'views'  => 'eye', 'likes'  => 'thumbs-o-up', 'first_post'  => 'clock-o', 'last_post'  => 'calendar-o');
@@ -292,7 +292,7 @@ function template_replies()
 			if ($context['showCheckboxes'])
 				echo '
 								<p class="topic_moderation">
-									<input type="checkbox" name="topics[]" value="', $topic['id'], '" class="input_check" />
+									<input type="checkbox" name="topics[]" value="', $topic['id'], '" />
 								</p>';
 
 			echo '
@@ -333,9 +333,9 @@ function template_replies_below()
 
 		if (!empty($context['using_relative_time']))
 			echo '
-			<script><!-- // --><![CDATA[
+			<script>
 				$(\'.topic_latest\').addClass(\'relative\');
-			// ]]></script>';
+			</script>';
 
 		echo '
 		</div>';
@@ -357,9 +357,9 @@ function template_unread_below()
 
 		if (!empty($context['using_relative_time']))
 			echo '
-			<script><!-- // --><![CDATA[
+			<script>
 				$(\'.topic_latest\').addClass(\'relative\');
-			// ]]></script>';
+			</script>';
 
 		echo '
 		</div>';

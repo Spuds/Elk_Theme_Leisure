@@ -5,13 +5,11 @@
  * @copyright ElkArte Forum contributors
  * @license   BSD http://opensource.org/licenses/BSD-3-Clause
  *
- * This software is a derived product, based on:
- *
- * Simple Machines Forum (SMF)
+ * This file contains code covered by:
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.0.6
+ * @version 1.1.4
  *
  */
 
@@ -20,6 +18,7 @@
  *
  * @param mixed[] $message
  * @param boolean $ignoring
+ *
  * @return string
  */
 function template_build_poster_div($message, $ignoring = false)
@@ -48,7 +47,7 @@ function template_build_poster_div($message, $ignoring = false)
 	{
 		if (!empty($message['member']['id']))
 			$poster_div .= '
-								<a class="linklevel1 name" href="' . $scripturl . '?action=profile;u=' . $message['member']['id'] . '">
+								<a class="linklevel1 name" href="' . $message['member']['href'] . '">
 									' . $message['member']['name'] . '
 								</a>';
 		else
@@ -133,7 +132,7 @@ function template_build_poster_div($message, $ignoring = false)
 				}
 
 				$poster_div .= '
-											<li>' . $custom['value'] . '</li>';
+											<li class="cf_icon">' . $custom['value'] . '</li>';
 			}
 
 			if ($shown)
@@ -152,7 +151,7 @@ function template_build_poster_div($message, $ignoring = false)
 			// Don't show an icon if they haven't specified a website.
 			if ($message['member']['website']['url'] != '' && !isset($context['disabled_fields']['website']))
 				$poster_div .= '
-											<li>
+											<li class="cf_icon">
 												<a href="' . $message['member']['website']['url'] . '" title="' . $message['member']['website']['title'] . '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $message['member']['website']['title'] . '" />' : $txt['www']) . '</a>
 											</li>';
 
@@ -369,21 +368,21 @@ function template_simple_message($msg)
 {
 	// @todo find a better name for $msg['date']
 	echo '
-			<div class="', $msg['class'], ' core_posts">', !empty($msg['counter']) ? '
+			<article class="', $msg['class'], ' core_posts">', !empty($msg['counter']) ? '
 				<div class="counter">' . $msg['counter'] . '</div>' : '', '
-				<div class="topic_details">
+				<header class="topic_details">
 					<h5>
 						', $msg['title'], '
 					</h5>', !empty($msg['date']) ? '
 					<span class="smalltext">' . $msg['date'] . '</span>' : '', '
-				</div>
-				<div class="inner">
+				</header>
+				<section class="inner">
 					', $msg['body'], '
-				</div>';
+				</section>';
 
 	if (!empty($msg['buttons']))
 		template_quickbutton_strip($msg['buttons'], !empty($msg['tests']) ? $msg['tests'] : array());
 
 	echo '
-			</div>';
+			</article>';
 }

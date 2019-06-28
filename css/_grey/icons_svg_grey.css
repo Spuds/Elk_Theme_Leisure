@@ -1,0 +1,14 @@
+/* These are to prevent the SVG icons for lock and sticky */
+.i-lock::before, .i-locked::before,
+.locked_row .topic_info::before,
+.locked_row .topic_details::before,
+.locked_row.sticky_row .topic_info::before {
+	content: "";
+}
+
+.i-pin::before, .i-sticky::before,
+.sticky_row .topic_info::before,
+.sticky_row .topic_details::before,
+.locked_row.sticky_row .topic_info .topic_name::before {
+	content: "";
+}
