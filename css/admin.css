@@ -1188,8 +1188,8 @@ Adjusts display of wording and selections to one line.
 #mod_main_section .content {
 	overflow: auto;
 
-	height: 14em;
-	padding: 6px 0;
+	height: 15em;
+	padding: 6px;
 
 	border: 1px solid;
 	border-radius: 0;

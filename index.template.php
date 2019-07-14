@@ -663,18 +663,47 @@ function theme_linktree($default = 'linktree')
  */
 function template_menu()
 {
-	global $context;
+	global $context, $user_info;
 
 	// WAI-ARIA a11y tweaks have been applied here.
 	echo '
 					<ul id="main_menu" role="menubar">';
 
+	// 1.1 svg back to fa mapping
+	$replacement = array(
+		'i-home' => '&#xf015;',
+		'i-forum' => '&#xf0c0;',
+		'i-cog' => '&#xf013;',
+		'i-account' => '&#xf007;',
+		'i-envelope' => '&#xf0e0;',
+		'i-envelope-blank' => '&#xf0c0;',
+		'i-bell' => '&#xf0f3;',
+		'i-bell-blank' => '&#xf0f3;',
+		'i-comments' => '&#xf086;',
+		'i-comments-blank' => '&#xf0e6;',
+		'i-sign-in' => '&#xf090;',
+		'i-register' => '&#xf234;'
+	);
 	foreach ($context['menu_buttons'] as $act => $button)
 	{
+		if (isset($replacement[$button['data-icon']]))
+		{
+			$button['data-icon'] = $replacement[$button['data-icon']];
+		}
+
+		$profile_image = '';
+		if ($act === 'profile' && !empty($user_info['avatar']['href']))
+			$profile_image = '<img class="avatar" src="' . $user_info['avatar']['href'] . '" alt ="" />';
+
 		echo '
 						<li id="button_', $act, '" class="listlevel1', !empty($button['sub_buttons']) ? ' subsections" aria-haspopup="true"' : '"', ' role="menuitem">
-							<a ', (!empty($button['data-icon']) ? 'data-icon="' . $button['data-icon'] . '" ' : ''), 'class="linklevel1', !empty($button['active_button']) ? ' active' : '', (!empty($button['indicator']) ? ' indicator' : '' ), '" href="', $button['href'], '" ', isset($button['target']) ? 'target="' . $button['target'] . '"' : '', '>
-								<span class="button_title">', $button['title'], '</span>
+							<a ', (!empty($button['data-icon']) ? '
+							data-icon="' . $button['data-icon'] . '" ' : ''), '
+							class="linklevel1', !empty($button['active_button']) ? ' active' : '', (!empty($button['indicator']) ? ' indicator' : '' ), '" 
+							href="', $button['href'], '" ', isset($button['target']) ? '
+							target="' . $button['target'] . '" ' : ' ',
+							'title="' . (!empty($button['alttitle']) ? $button['alttitle'] : $button['title']) . '">
+								<span class="button_title">', $profile_image, $button['title'], '</span>
 							</a>';
 
 		// Any 2nd level menus?

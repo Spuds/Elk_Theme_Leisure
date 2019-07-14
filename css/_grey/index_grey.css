@@ -1799,6 +1799,7 @@ html[dir="ltr"] .navigate_section li > a {
 
 	#search_form_button, #search_form_button_close {
 		min-height: 60px;
+		font-size: 1.8em;
 	}
 
 	#menu_nav, #menu_nav_scroll {
@@ -1871,10 +1872,7 @@ html[dir="ltr"] .navigate_section li > a {
 
 	#search_form_button, #search_form_button_close {
 		min-height: 45px;
-	}
-
-	#search_form_button, #search_form_button_close {
-		min-height: 45px;
+		font-size: 1.2em;
 	}
 
 	#gotop, #gobottom {

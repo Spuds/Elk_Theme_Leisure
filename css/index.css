@@ -1308,7 +1308,7 @@ a.bbc_link {
 }
 
 #search_form .search_nd {
-	width: 90%;
+	width: 88%;
 }
 
 #search_form select {
@@ -1691,7 +1691,7 @@ a.bbc_link {
 .listlevel1#button_profile img {
 	max-width: 35px;
 	max-height: 35px;
-	margin: 0 0.3em 0.1em 0;
+	margin: 0 0.4em 0.1em 0;
 
 	vertical-align: middle;
 }
@@ -7773,7 +7773,7 @@ a > i {
 
 	#wrapper, .frame {
 		width: 100%;
-		min-width: 300px;
+		min-width: 400px;
 	}
 
 	#main_content_section {
@@ -8327,6 +8327,10 @@ a > i {
 
 /* This one does 480px screens at default font size. */
 @media screen and (max-width: 30em) {
+	html {
+		min-width: 396px;
+	}
+
 	.board_lastpost {
 		float: none;
 	}
@@ -8481,6 +8485,10 @@ a > i {
 
 /* This one does 360px screens at default font size. */
 @media screen and (max-width: 22.5em) {
+	html {
+		min-width: 360px;
+	}
+
 	#button_media {
 		display: none;
 	}
