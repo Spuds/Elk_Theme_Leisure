@@ -9,7 +9,7 @@
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.1.4
+ * @version 1.1.7
  *
  */
 
@@ -123,8 +123,6 @@ function template_topic_listing()
 
 	if (!$context['no_topic_listing'])
 	{
-		// We know how to sprite these
-		$message_icon_sprite = array('clip' => '', 'lamp' => '', 'poll' => '', 'question' => '', 'xx' => '', 'moved' => '', 'exclamation' => '', 'thumbup' => '', 'thumbdown' => '');
 		$minmax_key = 'bid_' . $context['current_board'];
 
 		// If Quick Moderation is enabled start the form.
@@ -266,15 +264,17 @@ function template_topic_listing()
 
 			// Show the topic icon only for normal rows
 			$show_icon = !($topic['new'] && $context['user']['is_logged']) && $color_class === 'basic_row';
-			if (isset($message_icon_sprite[$topic['first_post']['icon']]) && $show_icon)
+			if (empty($modSettings['messageIcons_enable']) && $show_icon)
 			{
 				echo '
-								<span class="topicicon img_', $topic['first_post']['icon'], '"></span>';
+							<span class="topicicon i-' . $topic['first_post']['icon'], '"></span>';
 			}
 			elseif ($show_icon)
 			{
 				echo '
-								<img src="', $topic['first_post']['icon_url'], '" alt="" />';
+							<span class="topicicon">
+								<img src="', $topic['first_post']['icon_url'], '" alt="" />
+							</span>';
 			}
 			elseif (!($topic['new'] && $context['user']['is_logged']))
 			{

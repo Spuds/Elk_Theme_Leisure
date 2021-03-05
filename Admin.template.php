@@ -747,7 +747,7 @@ function template_edit_censored()
 	echo '
 					<div class="censorWords">
 						<input type="text" name="censor_vulgar[]" size="30" class="input_text" /> 
-						<i class="fa  fa-arrow-circle-right"></i> 
+						<i class="fa fa-arrow-circle-right"></i> 
 						<input type="text" name="censor_proper[]" size="30" class="input_text" />
 					</div>
 				<div id="moreCensoredWords"></div>

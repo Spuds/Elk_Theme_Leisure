@@ -9,7 +9,7 @@
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.1.6
+ * @version 1.1.7
  *
  */
 
@@ -147,7 +147,9 @@ function template_messages()
 
 			foreach ($context['follow_ups'][$message['id']] as $follow_up)
 				echo '
-										<li class="listlevel2"><a class="linklevel2" href="', $scripturl, '?topic=', $follow_up['follow_up'], '.0">', $follow_up['subject'], '</a></li>';
+										<li class="listlevel2">
+											<a class="linklevel2" href="', $scripturl, '?topic=', $follow_up['follow_up'], '.0">', $follow_up['subject'], '</a>
+										</li>';
 
 			echo '
 									</ul>
@@ -171,7 +173,7 @@ function template_messages()
 			echo '
 						<div id="msg_', $message['id'], '_ignored_prompt">
 							', $txt['ignoring_user'], '
-							<a href="#" id="msg_', $message['id'], '_ignored_link" style="display: none;">', $txt['show_ignore_user_post'], '</a>
+							<a href="#" id="msg_', $message['id'], '_ignored_link" class="hide">', $txt['show_ignore_user_post'], '</a>
 						</div>';
 
 		// Awaiting moderation?
@@ -183,7 +185,7 @@ function template_messages()
 
 		// Show the post itself, finally!
 		echo '
-						<div class="messageContent" id="msg_', $message['id'], '"', $ignoring ? ' style="display:none;"' : '', '>',
+						<div id="msg_', $message['id'], '" class="messageContent', $ignoring ? ' hide"' : '"', '>',
 		$message['body'], '
 						</div>';
 
@@ -458,15 +460,6 @@ function template_quickreply_below()
 			echo '
 							<div class="quickReplyContent">
 								<textarea cols="600" rows="7" class="quickreply" name="message" id="message" tabindex="', $context['tabindex']++, '"></textarea>
-							</div>';
-		}
-		else
-		{
-			echo '
-							', template_control_richedit($context['post_box_name'], 'smileyBox_message', 'bbcBox_message');
-		}
-
-		echo '
 							<div id="post_confirm_buttons" class="submitbutton">
 								<input type="submit" name="post" value="', $txt['post'], '" onclick="return submitThisOnce(this);" accesskey="s" tabindex="', $context['tabindex']++, '" />
 								<input type="submit" name="preview" value="', $txt['preview'], '" onclick="return submitThisOnce(this);" accesskey="p" tabindex="', $context['tabindex']++, '" />';
@@ -484,12 +477,23 @@ function template_quickreply_below()
 
 		echo '
 							</div>';
+		}
+		else
+		{
+			echo '
+							', template_control_richedit($context['post_box_name'], 'smileyBox_message', 'bbcBox_message');
+			// Show our submit buttons before any more options
+			echo '
+							<div id="post_confirm_buttons" class="submitbutton">
+								', template_control_richedit_buttons($context['post_box_name']), '
+							</div>';
+		}
 
 		// Show the draft last saved on area
 		if (!empty($context['drafts_autosave']) && !empty($options['drafts_autosave_enabled']))
 			echo '
 							<div class="draftautosave">
-								<span id="throbber" style="display:none"><i class="fa fa-spinner fa-spin"></i>&nbsp;</span>
+								<span id="throbber" class="hide"><i class="icon icon-spin i-spinner"></i>&nbsp;</span>
 								<span id="draft_lastautosave"></span>
 							</div>';
 
@@ -548,7 +552,7 @@ function template_quickreply_below()
 		</script>';
 
 	// Spell check for quick modify and quick reply (w/o the editor)
-	if ($context['show_spellchecking'])
+	if ($context['show_spellchecking'] && empty($options['use_editor_quick_reply']))
 		echo '
 			<form name="spell_form" id="spell_form" method="post" accept-charset="UTF-8" target="spellWindow" action="', $scripturl, '?action=spellcheck">
 				<input type="hidden" id="spellstring" name="spellstring" value="" />

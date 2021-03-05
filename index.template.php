@@ -9,7 +9,7 @@
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.1.4
+ * @version 1.1.7
  *
  */
 
@@ -296,8 +296,8 @@ function template_body_above()
 	global $context, $settings, $txt;
 
 	// Show the top area, logo, search, etc
-	echo '			
-	<div id="upper_container" class="wrapper"', empty($context['minmax_preferences']['upshrink']) ? '' : ' style="display: none;" aria-hidden="true"', '>
+	echo '
+	<div id="upper_container" class="wrapper">
 		<div id="upper_section">
 			<div id="logobox">
 				<img id="logo" src="', $context['header_logo_url_html_safe'], '" alt="', $context['forum_name_html_safe'], '" title="', $context['forum_name_html_safe'], '" />', empty($settings['site_slogan']) ? '' : '
@@ -432,7 +432,7 @@ function template_search_bar()
 		echo '
 					<input type="hidden" name="', (!empty($modSettings['search_dropdown']) ? 'sd_topic' : 'topic'), '" value="', $context['current_topic'], '" />';
 	// If we're on a certain board, limit it to this board ;).
-	elseif (!empty($context['current_board']))
+	if (!empty($context['current_board']))
 		echo '
 					<input type="hidden" name="', (!empty($modSettings['search_dropdown']) ? 'sd_brd[' : 'brd['), $context['current_board'], ']"', ' value="', $context['current_board'], '" />';
 
@@ -686,7 +686,7 @@ function template_menu()
 	);
 	foreach ($context['menu_buttons'] as $act => $button)
 	{
-		if (isset($replacement[$button['data-icon']]))
+		if (isset($button['data-icon'], $replacement[$button['data-icon']]))
 		{
 			$button['data-icon'] = $replacement[$button['data-icon']];
 		}

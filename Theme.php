@@ -775,6 +775,13 @@ class Theme extends \Theme
 			max-height:' . $modSettings['avatar_max_height'] . 'px;' : '') . '
 		}');
 		}
+
+		// Save some database hits, if a width for multiple wrappers is set in admin.
+		if (!empty($settings['forum_width']))
+		{
+			$this->addCSSRules('
+		.wrapper {width: ' . $settings['forum_width'] . ';}');
+		}
 	}
 
 	/**
@@ -842,6 +849,15 @@ class Theme extends \Theme
 
 		$menu_count['unread_messages'] = $context['user']['unread_messages'];
 		$menu_count['mentions'] = $context['user']['mentions'];
+
+		if (!empty($user_info['avatar']['href']))
+		{
+			$this->addCSSRules('
+	.i-account:before {
+		content: "";
+		background-image: url("' . $user_info['avatar']['href'] . '");
+	}');
+		}
 
 		// All the buttons we can possible want and then some, try pulling the final list of buttons from cache first.
 		if (($menu_buttons = cache_get_data('menu_buttons-' . implode('_', $user_info['groups']) . '-' . $user_info['language'], $cacheTime)) === null || time() - $cacheTime <= $modSettings['settings_updated'])
