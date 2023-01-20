@@ -9,7 +9,7 @@
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.1.7
+ * @version 1.1.9
  *
  */
 
@@ -96,8 +96,8 @@ function template_init()
 			'previous_page' => '<span class="previous_page">{prev_txt}</span>',
 			'current_page' => '<li class="linavPages"><strong class="current_page" role="menuitem">%1$s</strong></li>',
 			'next_page' => '<span class="next_page">{next_txt}</span>',
-			'expand_pages' => '<li class="linavPages expand_pages" {custom}> <a href="#">...</a> </li>',
-			'all' => '<span class="linavPages all_pages" role="menuitem">{all_txt}</span>',
+			'expand_pages' => '<li class="linavPages expand_pages" role="menuitem" {custom}> <a href="#">...</a> </li>',
+			'all' => '<span class="linavPages all_pages">{all_txt}</span>',
 		),
 
 		// @todo find a better place if we are going to create a notifications template
@@ -141,23 +141,22 @@ function template_html_above()
 
 	// The charset declaration needs to be in the first 1024 bytes
 	echo '
-	<meta charset="UTF-8" />
-	<title>', trim($context['page_title_html_safe']), '</title>';
+	<title>', trim($context['page_title_html_safe']), '</title>	
+	<meta charset="UTF-8" />';
 
 	// Tell IE to render the page in standards not compatibility mode. really for ie >= 8
 	// Note if this is not in the first 4k, its ignored, that's why its here
 	if (isBrowser('ie'))
 		echo '
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-	<link href="//ajax.googleapis.com" rel="dns-prefetch" />';
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />';
 
-	// Output meta_description any other structured meta data
-	template_structured_meta();
+	echo '
+	<link href="//ajax.googleapis.com" rel="dns-prefetch" />';
 
 	echo '
 	<meta name="viewport" content="width=device-width" />
-	<meta name="mobile-web-app-capable" content="yes" />', !empty($context['meta_keywords']) ? '
-	<meta name="keywords" content="' . $context['meta_keywords'] . '" />' : '';
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="description" content="', $context['page_title_html_safe'], '" />';
 
 	// OpenID enabled? Advertise the location of our endpoint using YADIS protocol.
 	if (!empty($modSettings['enableOpenID']))
@@ -168,6 +167,13 @@ function template_html_above()
 	if (!empty($context['robot_no_index']))
 		echo '
 	<meta name="robots" content="noindex" />';
+
+	// If we have any Open Graph data, here is where is inserted.
+	if (!empty($context['open_graph']))
+	{
+		echo '
+	' .implode("\n\t", $context['open_graph']);
+	}
 
 	// load in any css from addons or themes so they can overwrite if wanted
 	template_css();
@@ -235,57 +241,6 @@ function template_html_above()
 <body id="', $context['browser_body_id'], '" class="action_', !empty($context['current_action']) ? htmlspecialchars($context['current_action'], ENT_COMPAT, 'UTF-8') : (!empty($context['current_board']) ?
 	'messageindex' : (!empty($context['current_topic']) ? 'display' : 'home')),
 	!empty($context['current_board']) ? ' board_' . htmlspecialchars($context['current_board'], ENT_COMPAT, 'UTF-8') : '', '">';
-}
-
-/**
- * Prepare Structured Data such as open graph data for the page
- */
-function template_structured_meta()
-{
-	global $context, $boardurl, $settings;
-
-	// Supplied one, use it
-	if (!empty($context['description']))
-	{
-		$description = $context['description'];
-	}
-	// Build out a default that makes the most sense
-	else
-	{
-		$description = $context['page_title'];
-		if (strpos($context['page_title'], $context['forum_name']) === false)
-		{
-			$description .= ': ' . $context['forum_name'];
-		}
-		elseif (!empty($settings['site_slogan']))
-		{
-			$description .= ': ' . $settings['site_slogan'];
-		}
-	}
-
-	// If this is a topic view and the first page
-	if (!empty($context['current_topic']) && empty($context['current_page']) && !empty($context['get_message'][0]) && is_object($context['get_message'][0]))
-	{
-		// Grab the first post of the thread
-		$controller = $context['get_message'][0];
-		$first_post = $controller->{$context['get_message'][1]}();
-		$controller->{$context['get_message'][1]}('reset');
-
-		// Create a short description
-		$context['smd_data'] = $first_post;
-		$context['smd_data']['body'] = $context['page_title'] . '. ' . trim(preg_replace('~<[^>]+>~', ' ', $context['smd_data']['body']));
-		$context['smd_data']['description'] = empty($context['description']) ? Util::shorten_text(preg_replace('~\s\s+|&nbsp;|&quot;|&#039;~', ' ', $context['smd_data']['body']), 384, true) : $context['description'];
-		$description = $context['smd_data']['description'];
-	}
-
-	echo '
-	<meta name="description" content="', Util::shorten_text($description, 160, true), '" />
-	<meta property="og:title" content="', $context['page_title_html_safe'], '" />
-	<meta property="og:type" content="', !empty($context['current_topic']) ? 'article' : 'website', '" />
-	<meta property="og:url" content="', !empty($context['canonical_url']) ? $context['canonical_url'] : $boardurl, '" />
-	<meta property="og:image" content="', $context['header_logo_url_html_safe'], '" />
-	<meta property="og:sitename" content="', $context['forum_name_html_safe'], '" />
-	<meta property="og:description" content="', Util::htmlspecialchars($description), '" />';
 }
 
 /**
@@ -508,105 +463,34 @@ function template_html_below()
 		</div>
 	</footer>';
 
-	// Output any site rich cards
-	template_schema_script();
-
 	// load in any javascript that could be deferred to the end of the page
 	theme()->template_javascript(true);
+
+	// Schema microdata about the organization?
+	if (!empty($context['smd_site']))
+	{
+		echo '
+	<script type="application/ld+json">
+	', json_encode($context['smd_site'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), '
+	</script>';
+	}
+
+	// Schema microdata about the post?
+	if (!empty($context['smd_article']))
+	{
+		echo '
+	<script type="application/ld+json">
+	', json_encode($context['smd_article'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), '
+	</script>';
+	}
 
 	// Anything special to put out?
 	if (!empty($context['insert_after_template']))
 		echo $context['insert_after_template'];
 
 	echo '
+</body>
 </html>';
-}
-
-/**
- * Output schema.org data as ld+json
- */
-function template_schema_script()
-{
-	global $context, $boardurl;
-
-	if (!empty($context['smd_data']))
-	{
-		$post = trim(preg_replace('~<[^>]+>~', ' ', $context['smd_data']['body']));
-		$description = Util::shorten_text(preg_replace('~\s\s+~', ' ', $post));
-
-		$smd = array(
-			'@context' => 'http://schema.org',
-			'@type' => 'Article',
-			'headline' => $context['page_title'],
-			'author' => array(
-				'@type' => 'Person',
-				'name' => $context['smd_data']['member']['name'],
-			),
-			'url' => $context['smd_data']['href'],
- 			'commentCount' => !empty($context['smd_data']['real_num_replies']) ? $context['smd_data']['real_num_replies'] : 0,
- 			'datePublished' => $context['smd_data']['time'],
-			'dateModified' => !empty($context['smd_data']['modified']['name']) ? $context['smd_data']['modified']['time'] : $context['smd_data']['time'],
-			'description' => un_htmlspecialchars($context['smd_data']['description']),
-			'wordCount' => str_word_count($post),
-			'publisher' => array(
-				'@type' => 'Organization',
-				'name' => un_htmlspecialchars($context['forum_name']),
-				'logo' => array(
-					'@type' => 'ImageObject',
-					'url' => $context['header_logo_url_html_safe'],
-					'width' => 120,
-      				'height' => 60,
-				),
-			),
-			'mainEntityOfPage' => array(
-				'@type' => 'WebPage',
-         		'@id' => !empty($context['canonical_url']) ? $context['canonical_url'] : $boardurl,
-			),
-		);
-
-		// If there are attachments, use the first one that is an image
-		if (!empty($context['smd_data']['attachment']))
-		{
-			foreach($context['smd_data']['attachment'] as $attachment)
-			{
-				if ($attachment['is_image'])
-				{
-					$smd['image'] = array(
-						'@type' => 'ImageObject',
-						'url' => $context['smd_data']['attachment'][0]['href'],
-						'width' => $context['smd_data']['attachment'][0]['real_width'],
-						'height' => $context['smd_data']['attachment'][0]['real_height']
-					);
-
-					break;
-				}
-			}
-		}
-
-		echo '
-		<script type="application/ld+json">
-    	', json_encode($smd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ), '
-    	</script>';
-	}
-
-	// The sites business card
-	$smd = array(
-		'@context' => 'http://schema.org',
-		'@type' => 'Organization',
-		'url' => !empty($context['canonical_url']) ? $context['canonical_url'] : $boardurl,
-		'logo' => array(
-			'@type' => 'ImageObject',
-			'url' => $context['header_logo_url_html_safe'],
-			'width' => 120,
-			'height' => 60,
-		),
-		'name' => un_htmlspecialchars($context['forum_name'])
-	);
-
-	echo '
-		<script type="application/ld+json">
-    	', json_encode($smd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), '
-    	</script>';
 }
 
 /**
@@ -770,10 +654,6 @@ function template_button_strip($button_strip, $direction = '', $strip_options = 
 	if (!is_array($strip_options))
 		$strip_options = array();
 
-	// List the buttons in reverse order for RTL languages.
-	if ($context['right_to_left'])
-		$button_strip = array_reverse($button_strip, true);
-
 	// Create the buttons... now with cleaner markup (yay!).
 	$buttons = array();
 	foreach ($button_strip as $key => $value)
@@ -873,12 +753,8 @@ function template_basicicons_legend()
 
 	echo '
 		<p class="floatleft">', !empty($modSettings['enableParticipation']) && $context['user']['is_logged'] ? '
-			<span class="topicicon img_profile"></span>' . $txt['participation_caption'] : '<span class="topicicon img_normal"> </span>' . $txt['normal_topic'], '<br />
-			' . (!empty($modSettings['pollMode']) ? '<span class="topicicon img_poll"> </span>' . $txt['poll'] : '') . '
-		</p>
-		<p>
-			<span class="topicicon img_locked"> </span>' . $txt['locked_topic'] . '<br />
-			<span class="topicicon img_sticky"> </span>' . $txt['sticky_topic'] . '<br />
+			<span class="topicicon img_profile"></span>' . $txt['participation_caption'] : '<span class="topicicon img_normal"> </span>' . $txt['normal_topic'], '
+			' . (!empty($modSettings['pollMode']) ? '<span class="icon i-poll"> </span>' . $txt['poll'] : '') . '
 		</p>';
 }
 
@@ -1051,7 +927,8 @@ function template_member_email($member, $text = false)
 			{
 				return '<a class="linkbutton" href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '">' . $txt['email'] . '</a>';
 			}
-			elseif ($member['show_email'] === 'yes_permission_override' || $member['show_email'] === 'yes')
+
+			if ($member['show_email'] === 'yes_permission_override' || $member['show_email'] === 'yes')
 			{
 				return '<a class="linkbutton" href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '">' . $member['email'] . '</a>';
 			}
@@ -1066,10 +943,8 @@ function template_member_email($member, $text = false)
 			{
 				return '<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '" class="icon i-envelope-o' . ($member['online']['is_online'] ? '' : '-blank') . '" title="' . $txt['email'] . ' ' . $member['name'] . '"><s>' . $txt['email'] . ' ' . $member['name'] . '</s></a>';
 			}
-			else
-			{
-				return '<i class="icon i-envelope-o" title="' . $txt['email'] . ' ' . $txt['hidden'] . '"><s>' . $txt['email'] . ' ' . $txt['hidden'] . '</s></i>';
-			}
+
+			return '<i class="icon i-envelope-o" title="' . $txt['email'] . ' ' . $txt['hidden'] . '"><s>' . $txt['email'] . ' ' . $txt['hidden'] . '</s></i>';
 		}
 	}
 
@@ -1096,10 +971,8 @@ function template_msg_email($id, $member = false)
 			{
 				return '<a href="' . $scripturl . '?action=emailuser;sa=email;msg=' . $id . '" class="icon i-envelope-o' . (($member !== false && $member['online']['is_online']) ? '' : '-blank') . '" title="' . $txt['email'] . '"><s>' . $txt['email'] . '</s></a>';
 			}
-			else
-			{
-				return '<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '" class="icon i-envelope-o' . (($member !== false && $member['online']['is_online']) ? '' : '-blank') . '" title="' . $txt['email'] . '"><s>' . $txt['email'] . '</s></a>';
-			}
+
+			return '<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '" class="icon i-envelope-o' . (($member !== false && $member['online']['is_online']) ? '' : '-blank') . '" title="' . $txt['email'] . '"><s>' . $txt['email'] . '</s></a>';
 		}
 		else
 		{

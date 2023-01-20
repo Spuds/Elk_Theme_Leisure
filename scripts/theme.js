@@ -66,16 +66,20 @@ $(function() {
 	if (typeof elk_codefix === 'function')
 		elk_codefix();
 
+	// Remove "show more" from short quotes
+	if (typeof elk_quotefix === 'function')
+		elk_quotefix();
+
 	// Enable the ... page expansion
 	$('.expand_pages').expand_pages();
 
 	// Collapsible fieldsets, pure candy
-	$(document).on('click', 'legend', function(){
+	$(document).on('click', 'legend', function() {
 		$(this).siblings().slideToggle("fast");
 		$(this).parent().toggleClass("collapsed");
 	});
 
-	$('legend', function () {
+	$('legend').each(function () {
 		if ($(this).data('collapsed'))
 			$(this).click();
 	});

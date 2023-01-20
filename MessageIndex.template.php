@@ -9,7 +9,7 @@
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.1.7
+ * @version 1.1.9
  *
  */
 
@@ -234,10 +234,10 @@ function template_topic_listing()
 
 				if (!empty($topic['last_post']['member']['avatar']['href']))
 					echo '
-							<img class="avatar" src="', $topic['last_post']['member']['avatar']['href'], '" alt="" />';
+							<img class="avatar" src="', $topic['last_post']['member']['avatar']['href'], '" alt="" loading="lazy" />';
 				else
 					echo '
-							<img class="avatar" src="', $settings['images_url'] . '/default_avatar.png', '" alt="" />';
+							<img class="avatar" src="', $settings['images_url'] . '/default_avatar.png', '" alt="" loading="lazy" />';
 
 				echo '
 						</a>
