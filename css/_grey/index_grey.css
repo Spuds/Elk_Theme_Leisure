@@ -38,15 +38,13 @@
  *		$PROGRESS............Nifty progress bars.
  *		$MEDIA...............Experimental media queries.
  */
-
 /* -------------------------------------------------------
  *	$GENERAL
  * -------------------------------------------------------
  */
-
 /* Normal, standard links. */
 a, a:link, a:visited,
-/* Links that open in a new window. */
+	/* Links that open in a new window. */
 a.new_win:link, a.new_win:visited {
 	color: #555555;
 }
@@ -143,7 +141,7 @@ input[type="submit"]:hover, button[type="submit"]:hover, input[type="button"]:ho
 }
 
 /* Don't show disabled buttons as active on hover */
-input[type=submit][disabled]:hover, button[disabled], button[disabled]:hover {
+input[type="submit"][disabled]:hover, button[disabled], button[disabled]:hover {
 	border-color: #AFAFAF;
 	border-top-color: #CFCFCF;
 	border-left-color: #BFBFBF;
@@ -300,7 +298,6 @@ h2.category_header.expand {
  *	$BBC
  * -------------------------------------------------------
  */
-
 /* The "Quote:" and "Code:" header parts... */
 .codeheader, .quoteheader {
 	color: #555555;
@@ -314,7 +311,7 @@ h2.category_header.expand {
 
 /* A quote, perhaps from another post. */
 .bbc_quote,
-/* A code block - maybe PHP ;) - shared styles. */
+	/* A code block - maybe PHP ;) - shared styles. */
 .bbc_code {
 	border-color: #CCCCCC;
 	background: #FFFFFD;
@@ -387,7 +384,6 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
  *	$AJAX
  * -------------------------------------------------------
  */
-
 /* The "Loading" bar for quick edit, etc. */
 #ajax_in_progress {
 	color: #555555;
@@ -399,7 +395,6 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
  *	$MAIN
  * -------------------------------------------------------
  */
-
 /* Maintenance mode warning. */
 .notice {
 	color: #A80000;
@@ -460,8 +455,8 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 }
 
 .content {
-	background: #F6F6F6;
 	border-color: transparent;
+	background: #F6F6F6;
 }
 
 #debug_logging a, #debug_logging strong {
@@ -485,10 +480,6 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 	background: #334455;
 }
 
-#menu_nav_scroll {
-	border-top: 10px solid #6699CC;
-}
-
 /* Top Menu */
 /* Level 1 Menu bar: link or button. General styling. */
 #main_menu .linklevel1, #main_menu .linklevel1:link, #main_menu .linklevel1:visited {
@@ -503,7 +494,6 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 #menu_sidebar .linklevel1:hover, #menu_sidebar .listlevel1:hover .linklevel1,
 #menu_current_area > strong > .linklevel1 {
 	transition: background-color 0.25s, color 0.15s;
-
 	color: #FFFFFD;
 	background: #BFBFBF;
 }
@@ -603,15 +593,13 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
  * $MENUS
  * -------------------------------------------------------
  */
-
 /* General styling, basically any menu thats not the top menu. */
-.linklevel1, .linklevel1:link, .linklevel1:visited {
+.linklevel1, .linklevel1:link, .linklevel1:visited, .linklevel1 .inline_mod_check {
 	color: #566E4B;
 	border: 1px solid transparent;
 	border-bottom: 1px solid #E5E5E5;
 	border-radius: 0;
-	background: #F4F4F4 linear-gradient(to bottom, #FFFFFD, #E4E4E4);
-	box-shadow: 1px 1px 2px #E5E5E5;
+	box-shadow: 0.3px 0.5px 0.7px #E4E4E4, 0.4px 0.8px 1px -1.2px #E4E4E4, 1px 2px 2.5px -2.5px #E4E4E4;
 }
 
 /* Level 1 button hover and focus effects. */
@@ -619,10 +607,8 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 .linklevel2:hover, .listlevel2:hover .linklevel2,
 .linklevel3:hover, .listlevel3:hover .linklevel3 {
 	text-decoration: none;
-
 	color: #555555;
 	border: 1px solid #C0C0C0;
-	border-top: 1px solid #AFAFAF;
 	border-left: 1px solid #AFAFAF;
 	background: #F0F0F0;
 	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.07) inset;
@@ -674,9 +660,9 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 }
 
 .poster_details {
-	box-shadow: 2px 2px 4px 1px #CCCCCC;
 	padding: 6px 0 0;
 	background: #FAFAFA;
+	box-shadow: 2px 2px 4px 1px #CCCCCC;
 }
 
 /* Level 1 active buttons. 5F5F5F */
@@ -691,8 +677,10 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 /* Hover effects for those buttons. */
 .linklevel1.active:hover, .listlevel1:hover .linklevel1.active,
 #collapse_button .linklevel1:hover, .linklevel1:hover .pm_indicator {
-	border-color: transparent;
 	color: #555555;
+	border-color: transparent;
+	border-top: 0px solid transparent;
+
 	background: #E8E8E8;
 	background-image: linear-gradient(to bottom, #E8E8E8, #EFF0F3);
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3) inset;
@@ -737,8 +725,7 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 
 /*	$BOARDICONS	*/
 /* ------------------------------------------------------- */
-
-.on_board:before, .on2_board:before, .redirect_board:before, .new_some_board:before, .new_redirect_board:before  {
+.on_board:before, .on2_board:before, .redirect_board:before, .new_some_board:before, .new_redirect_board:before {
 	color: #6BA65E;
 }
 
@@ -750,14 +737,13 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 /* ------------------------------------------------------- */
 /* The navigation list (i.e. linktree) */
 /* Wrapper/background. */
-
 /* Color for linktree items. */
 .breadcrumb {
 	color: #444444;
 	border-color: #DCDCDC;
 	background: #F7F7F8;
-	background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
-	box-shadow: rgba(0,0,0,0.05) 0 1px 4px;
+	background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+	box-shadow: rgba(0, 0, 0, 0.05) 0 1px 4px;
 }
 
 .navigate_section:last-child li {
@@ -769,8 +755,8 @@ html[dir="ltr"] .navigate_section li > a {
 }
 
 .navigate_section li > a:before, .navigate_section li > a:after {
-	color: rgba(255,255,255,1);
-	border-color: rgba(0,0,0,0.2);
+	color: rgba(255, 255, 255, 1);
+	border-color: rgba(0, 0, 0, 0.2);
 }
 
 .navigate_section li > a:before, .navigate_section li > a:after {
@@ -791,7 +777,7 @@ html[dir="ltr"] .navigate_section li > a {
 	border-color: #AFAFAF;
 	border-top-color: #BBBBBB;
 	background-image: linear-gradient(to bottom, #FCFCFC, #E5E5E4);
-	box-shadow: 1px 1px 2px #E5E5E5, 0 -1px 0 #E4E4E4 inset;
+	box-shadow: 0.3px 0.5px 0.7px #E4E4E4, 0.4px 0.8px 1px -1.2px #E4E4E4, 1px 2px 2.5px -2.5px #E4E4E4;
 }
 
 .buttonlist li:hover {
@@ -802,7 +788,6 @@ html[dir="ltr"] .navigate_section li > a {
 .buttonlist li a.active {
 	color: #FFFFFD;
 	background: #838E9D;
-	box-shadow: 1px 1px 2px #E8E8E8, 0 -1px 0 #838E9D inset;
 }
 
 /* The quick buttons. */
@@ -812,12 +797,12 @@ html[dir="ltr"] .navigate_section li > a {
 }
 
 /* Cancel generic border-radius. */
-.quickbuttons .linklevel1, .quickbuttons .inline_mod_check  {
+.quickbuttons .linklevel1, .quickbuttons .inline_mod_check {
 	color: #555555;
 	border-color: #AFAFAF;
 	border-top-color: #BBBBBB;
 	background-image: linear-gradient(to bottom, #FCFCFC, #E5E5E4);
-	box-shadow: 1px 1px 2px #E5E5E5, 0 -1px 0 #E4E4E4 inset;
+	box-shadow: 0.3px 0.5px 0.7px #E4E4E4, 0.4px 0.8px 1px -1.2px #E4E4E4, 1px 2px 2.5px -2.5px #E4E4E4;
 }
 
 /*	$PAGELINKS	*/
@@ -842,7 +827,6 @@ html[dir="ltr"] .navigate_section li > a {
 	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.07) inset;
 }
 
-
 .small_pagelinks li a.navPages {
 	border-color: #DDDDDD;
 }
@@ -855,7 +839,6 @@ html[dir="ltr"] .navigate_section li > a {
 
 /*	$TABLES		*/
 /* ------------------------------------------------------- */
-
 /* A general table class. */
 .table_grid {
 	border-color: #CED2D8;
@@ -904,7 +887,6 @@ html[dir="ltr"] .navigate_section li > a {
 /*    .forumposts for thread pages and recent posts, etc. */
 /*    .content_category for general divisions around the place. */
 /* All styled the same in default variant, but available for fun and games. */
-
 /* The board categories and newsfader - some shared styling. */
 .forum_category, .forumposts, .content_category {
 	background: #DEEDDA;
@@ -954,8 +936,8 @@ html[dir="ltr"] .navigate_section li > a {
 }
 
 #ic_recentposts th, #ps_recentposts th, #ps_recenttopics th {
-	border-bottom-color: #CED2D8;
 	border-top-color: transparent;
+	border-bottom-color: #CED2D8;
 }
 
 #ic_recentposts td, #ps_recentposts td, #ps_recenttopics td {
@@ -1079,7 +1061,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$TOPICS
  * -------------------------------------------------------
  */
-
 /* The display template (topic view).
 /* Poll vote options */
 #poll_options .options {
@@ -1150,7 +1131,6 @@ html[dir="ltr"] .navigate_section li > a {
 	border-color: #AFAFAF;
 	border-top-color: #CFCFCF;
 	border-left-color: #BFBFBF;
-
 	background: #F4F4F4 linear-gradient(to bottom, #FCFCFC 0%, #E5E5E5 100%);
 	box-shadow: 1px 1px 2px #EEEEEE;
 }
@@ -1171,21 +1151,13 @@ html[dir="ltr"] .navigate_section li > a {
 	color: #555555;
 }
 
-.keyinfo {
-	border-bottom-color: #BFBFBF;
+.inner, .messageContent {
+	border-top-color: #BFBFBF;
 }
 
 /* All the signatures used in the forum. */
 .signature, .attachments, .custom_fields_above_signature {
 	border-top-color: #BFBFBF;
-}
-
-.new_post_separator:after {
-	border-color: #E4E4E4 transparent;
-}
-
-.new_post_separator:before {
-	border-color: #BBBBBB transparent;
 }
 
 .new_post_separator {
@@ -1219,7 +1191,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$EDITOR
  * -------------------------------------------------------
  */
-
 /* The main post editor section. */
 #preview_body {
 	border-color: #CED2D8;
@@ -1241,7 +1212,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$DRAG-N-DROP
  * -------------------------------------------------------
  */
-
 .drop_area {
 	color: #444444;
 	border-color: #CCCCCC;
@@ -1284,21 +1254,17 @@ html[dir="ltr"] .navigate_section li > a {
  *	$MODERATE
  * -------------------------------------------------------
  */
-
 .split_messages .post {
 	border-top-color: #FFFFFD;
 }
-
 
 /* -------------------------------------------------------
  *	$TABS
  * -------------------------------------------------------
  */
-
 /* We can't control what jqueryui pollutes the DOM with, so deal with it */
 /* Styles for the profile summary tabs, or any jquery ui tabs */
 /* ---------------------------------------------------------- */
-
 .ui-tabs .ui-tabs-nav li {
 	color: #FFFFFD;
 	border-color: #CCCCCC;
@@ -1335,7 +1301,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$PROFILE
  * -------------------------------------------------------
  */
-
 .ui-tabs .ui-tabs-panel {
 	border-color: #CED2D8;
 	border-top-color: #CCCCCC;
@@ -1397,13 +1362,8 @@ html[dir="ltr"] .navigate_section li > a {
 }
 
 .attachment_name, .attachment_details {
-	background: #F6F8F9 !important;
 	border-color: #CCCCCC;
-}
-
-.attachment_image {
-	--shadow-color: rgba(158, 158, 158, .38);
-	box-shadow: 0.3px 0.5px 0.7px var(--shadow-color), 0.4px 0.8px 1px -1.2px var(--shadow-color), 1px 2px 2.5px -2.5px var(--shadow-color);
+	background: #F6F8F9 !important;
 }
 
 #warndiv .ui-widget-header {
@@ -1426,7 +1386,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$PERSONAL
  * -------------------------------------------------------
  */
-
 #personal_messages .capacity_bar {
 	border-color: #ADADAD;
 }
@@ -1509,7 +1468,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$HELP
  * -------------------------------------------------------
  */
-
 #helpmain {
 	border-color: #CCCCCC;
 	box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
@@ -1547,7 +1505,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$SEARCH
  * -------------------------------------------------------
  */
-
 #mlsearch_options {
 	border-color: #CED2D8;
 	background: #FAFAFA;
@@ -1616,7 +1573,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$BOXES
  * -------------------------------------------------------
  */
-
 /* Lotsa boxes. */
 .description, .information, .warningbox, .successbox, .infobox, .errorbox {
 	border-color: #CCCCCC;
@@ -1676,7 +1632,6 @@ html[dir="ltr"] .navigate_section li > a {
  *	$PROGRESS
  * -------------------------------------------------------
  */
-
 .progress_bar {
 	border-color: #000000;
 	background: #FFFFFD;
@@ -1734,10 +1689,8 @@ html[dir="ltr"] .navigate_section li > a {
 	background: #FFFFFD;
 }
 
-
 #recentposts .inner blockquote, #recentposts .messageContent blockquote {
 	overflow: hidden;
-
 	height: 5em;
 }
 
@@ -1774,13 +1727,13 @@ html[dir="ltr"] .navigate_section li > a {
 .iconline {
 	border-color: #27A348;
 	background: #B4E391;
-	background-image: linear-gradient(to bottom, #B4E391 0%,#61C419 50%,#B4E391 100%);
+	background-image: linear-gradient(to bottom, #B4E391 0%, #61C419 50%, #B4E391 100%);
 }
 
 .icoffline {
 	border-color: #828282;
 	background: #BBBBBB;
-	background-image: linear-gradient(to bottom, #BBBBBB 0%,#6F6F6F 50%,#BBBBBB 100%);
+	background-image: linear-gradient(to bottom, #BBBBBB 0%, #6F6F6F 50%, #BBBBBB 100%);
 }
 
 /* -------------------------------------------------------
@@ -1807,7 +1760,6 @@ html[dir="ltr"] .navigate_section li > a {
  *
  * Of course, having comments to map em to px for each query is a good idea too.
  */
-
 /* This one does 800 screens at default font size. */
 @media screen and (max-width: 50em) {
 	#menu_sidebar {
@@ -1826,8 +1778,8 @@ html[dir="ltr"] .navigate_section li > a {
 	}
 
 	#search_form_button, #search_form_button_close {
-		min-height: 60px;
 		font-size: 1.8em;
+		min-height: 60px;
 	}
 
 	#menu_nav, #menu_nav_scroll {
@@ -1845,17 +1797,13 @@ html[dir="ltr"] .navigate_section li > a {
 		font-family: "FontAwesome";
 		font-size: 3em;
 		line-height: 1.2em;
-
 		display: inline-block;
-
 		width: 1.15em;
 		height: 1.15em;
 		margin: 2px;
 		padding: 1px;
-
 		content: attr(data-icon);
 		text-align: center;
-
 		color: #FAFAFA;
 		border: 3px solid transparent;
 		border-radius: 0;
@@ -1899,8 +1847,8 @@ html[dir="ltr"] .navigate_section li > a {
 	}
 
 	#search_form_button, #search_form_button_close {
-		min-height: 45px;
 		font-size: 1.2em;
+		min-height: 45px;
 	}
 
 	#gotop, #gobottom {
@@ -1917,7 +1865,6 @@ html[dir="ltr"] .navigate_section li > a {
 
 	#gotop:hover, #gobottom:hover {
 		text-decoration: none;
-
 		opacity: 1;
 		color: #555555;
 	}
@@ -1962,7 +1909,6 @@ html[dir="ltr"] .navigate_section li > a {
 
 	.forumposts .content {
 		margin-top: 8px;
-
 		border: 1px solid #BFBFBF;
 		border-radius: 0;
 		box-shadow: 3px 3px 6px #E5E5E5;
@@ -1992,7 +1938,6 @@ html[dir="ltr"] .navigate_section li > a {
 
 	.whos_online dd:nth-child(even), .whos_online dd:nth-child(odd) {
 		margin-top: 1px;
-
 		border-top: 1px solid #CCCCCC;
 	}
 
@@ -2002,7 +1947,6 @@ html[dir="ltr"] .navigate_section li > a {
 
 	.track_ip {
 		font-size: 0.7em;
-
 		float: right;
 	}
 

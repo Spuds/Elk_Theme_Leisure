@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-	<theme-info xmlns="https://www.elkarte.net/site/theme-info" xmlns:elk="https://www.elkarte.net/">
+	<theme-info xmlns="http://www.elkarte.net/site/theme-info" xmlns:elk="http://www.elkarte.net/">
 		<!-- For the id, always use something unique - put your name, a colon, and then the package name. -->
 		<id>spuds:leisure</id>
 		<version>1.2</version>
@@ -8,7 +8,7 @@
 		<!-- Author: your email address or contact information. The name attribute is optional. -->
 		<author name="Your Name">spuds@spudsdesign.com</author>
 		<!-- Website... where to get updates and more information. -->
-		<website>https://elkarte.github.io/themes/</website>
+		<website>http://themes.spudsdesign.com/</website>
 		<!-- Template layers to use, defaults to "html,body". -->
 		<layers>html,body</layers>
 		<!-- Templates to load on startup. Default is "index". -->

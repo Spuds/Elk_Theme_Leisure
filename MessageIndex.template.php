@@ -267,7 +267,7 @@ function template_topic_listing()
 			if (empty($modSettings['messageIcons_enable']) && $show_icon)
 			{
 				echo '
-							<span class="topicicon i-' . $topic['first_post']['icon'], '"></span>';
+							<span class="icon i-' . $topic['first_post']['icon'], '"></span>';
 			}
 			elseif ($show_icon)
 			{

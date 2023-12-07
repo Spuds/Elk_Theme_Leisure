@@ -521,7 +521,6 @@ dl.settings img {
 .icon_anchor {
 	padding: 2px 0 0 6px;
 	float: right;
-	transform: scaleX(-1);
 }
 .board_info .board_description, .board_info .moderators {
 	margin: 0 56px 0 0;

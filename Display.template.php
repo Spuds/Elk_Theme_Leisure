@@ -122,7 +122,7 @@ function template_messages()
 
 		// Show the message anchor and a "new" anchor if this message is new.
 		echo '
-				<section class="post_wrapper ', $message['classes'], $message['approved'] ? ($message['alternate'] == 0 ? ' content' : ' content') : ' approvebg', '">', $message['id'] != $context['first_message'] ? '
+				<section class="post_wrapper', $message['classes'], $message['approved'] ? ($message['alternate'] == 0 ? ' content' : ' content') : ' approvebg', '">', $message['id'] != $context['first_message'] ? '
 					<a class="post_anchor" id="msg' . $message['id'] . '"></a>' . ($message['first_new'] ? '<a id="new"></a>' : '') : '';
 
 		// Showing the sidebar posting area?
@@ -186,7 +186,7 @@ function template_messages()
 		// Show the post itself, finally!
 		echo '
 						<div id="msg_', $message['id'], '" data-msgid="',$message['id'], '" class="messageContent', $ignoring ? ' hide"' : '"', '>',
-							$message['body'], '
+		$message['body'], '
 						</div>';
 
 		// This is the floating Quick Quote button.
@@ -218,7 +218,8 @@ function template_messages()
 		if ($message['can_modify'] || ($context['can_report_moderator']))
 			echo '
 							<li class="listlevel1 subsections" aria-haspopup="true">
-								<a href="#" ', !empty($options['use_click_menu']) ? '' : 'onclick="event.stopPropagation();return false;" ', 'class="linklevel1 post_options">', $txt['post_options'], '</a>';
+								<a href="#" ', !empty($options['use_click_menu']) ? '' : 'onclick="event.stopPropagation();return false;" ', 'class="linklevel1 post_options">', $txt['post_options'], '
+							</a>';
 
 		if ($message['can_modify'] || $message['can_remove'] || !empty($context['can_follow_up']) || ($context['can_split'] && !empty($context['real_num_replies'])) || $context['can_restore_msg'] || $message['can_approve'] || $message['can_unapprove'] || $context['can_report_moderator'])
 		{
@@ -302,7 +303,7 @@ function template_messages()
 			if ($message['can_like'] || $message['can_unlike'])
 				echo '
 							<li class="listlevel1', !empty($message['like_counter']) ? ' liked"' : '"' ,'>
-								<a class="linklevel1 ', $message['can_unlike'] ? 'unlike_button' : 'like_button', '" href="javascript:void(0)"', !empty($message['like_counter']) ? ' title="' . $txt['liked_by'] . ' ' . implode(', ', $context['likes'][$message['id']]['member']) . '"' : '', ' onclick="likePosts.prototype.likeUnlikePosts(event,', $message['id'], ', ', $context['current_topic'], '); return false;">',
+								<a class="linklevel1 ', $message['can_unlike'] ? 'unreact_button' : 'react_button', '" href="javascript:void(0)"', !empty($message['like_counter']) ? ' title="' . $txt['liked_by'] . ' ' . implode(', ', $context['likes'][$message['id']]['member']) . '"' : '', ' onclick="likePosts.prototype.likeUnlikePosts(event,', $message['id'], ', ', $context['current_topic'], '); return false;">',
 				!empty($message['like_counter']) ? '<span class="likes_indicator">' . $message['like_counter'] . '</span>&nbsp;' . $txt['likes'] : $txt['like_post'], '
 								</a>
 							</li>';
@@ -311,8 +312,8 @@ function template_messages()
 			else
 				echo '
 							<li class="listlevel1', !empty($message['like_counter']) ? ' liked"' : '"', '>
-								<a href="javascript:void(0)" role="button" title="', !empty($message['like_counter']) ? $txt['liked_by'] . ' ' . implode(', ', $context['likes'][$message['id']]['member']) : '', '" class="linklevel1 likes_button">',
-				!empty($message['like_counter']) ? '<span class="likes_indicator">' . $message['like_counter'] . '</span>&nbsp;' . $txt['likes'] : '&nbsp;', '
+								<a href="javascript:void(0)" role="button" title="', !empty($message['like_counter']) ? $txt['liked_by'] . ' ' . implode(', ', $context['likes'][$message['id']]['member']) : '', '" class="linklevel1 reacts_button">',
+									!empty($message['like_counter']) ? '<span class="likes_indicator">' . $message['like_counter'] . '</span>&nbsp;' . $txt['likes'] : '&nbsp;', '
 								</a>
 							</li>';
 		}
@@ -414,19 +415,19 @@ function template_quickreply_below()
 	{
 		echo '
 			<a id="quickreply"></a>
-			<div id="quickreplybox">
-				<h2 class="category_header category_toggle">
-					<span>
+			<div class="forumposts" id="quickreplybox">
+				<h2 class="category_header">
+					<span id="category_toggle">&nbsp;
 						<a href="javascript:oQuickReply.swap();">
-							<i id="quickReplyExpand" class="chevricon i-chevron-', empty($context['minmax_preferences']['qreply']) ? 'up' : 'down', '" title="', $txt['hide'], '"></i>
+							<span id="quickReplyExpand" class="', empty($context['minmax_preferences']['qreply']) ? 'collapse' : 'expand', '" title="', $txt['hide'], '"></span>
 						</a>
 					</span>
 					<a href="javascript:oQuickReply.swap();">', $txt['quick_reply'], '</a>
 				</h2>
-				<div id="quickReplyOptions" class="forumposts content', empty($context['minmax_preferences']['qreply']) ? '"' : ' hide"', '>
+				<div id="quickReplyOptions" class="forumposts', empty($context['minmax_preferences']['qreply']) ? '"' : ' hide"', '>
 					<div class="editor_wrapper">
 						', $context['is_locked'] ? '<p class="alert smalltext">' . $txt['quick_reply_warning'] . '</p>' : '',
-						$context['oldTopicError'] ? '<p class="alert smalltext">' . sprintf($txt['error_old_topic'], $modSettings['oldTopicDays']) . '</p>' : '', '
+		$context['oldTopicError'] ? '<p class="alert smalltext">' . sprintf($txt['error_old_topic'], $modSettings['oldTopicDays']) . '</p>' : '', '
 						', $context['can_reply_approved'] ? '' : '<em>' . $txt['wait_for_approval'] . '</em>', '
 						', !$context['can_reply_approved'] && !empty($context['require_verification']) ? '<br />' : '', '
 						<form action="', $scripturl, '?board=', $context['current_board'], ';action=post2" method="post" accept-charset="UTF-8" name="postmodify" id="postmodify" onsubmit="submitonce(this);', (!empty($modSettings['mentions_enabled']) ? 'revalidateMentions(\'postmodify\', \'' . (empty($options['use_editor_quick_reply']) ? 'message' : $context['post_box_name']) . '\');' : ''), '">
@@ -464,43 +465,42 @@ function template_quickreply_below()
 			echo '
 							<div class="quickReplyContent">
 								<textarea cols="600" rows="7" class="quickreply" name="message" id="message" tabindex="', $context['tabindex']++, '"></textarea>
-								<div id="post_confirm_buttons" class="submitbutton">
-									<input type="submit" name="post" value="', $txt['post'], '" onclick="return submitThisOnce(this);" accesskey="s" tabindex="', $context['tabindex']++, '" />
-									<input type="submit" name="preview" value="', $txt['preview'], '" onclick="return submitThisOnce(this);" accesskey="p" tabindex="', $context['tabindex']++, '" />';
+							<div id="post_confirm_buttons" class="submitbutton">
+								<input type="submit" name="post" value="', $txt['post'], '" onclick="return submitThisOnce(this);" accesskey="s" tabindex="', $context['tabindex']++, '" />
+								<input type="submit" name="preview" value="', $txt['preview'], '" onclick="return submitThisOnce(this);" accesskey="p" tabindex="', $context['tabindex']++, '" />';
 
-			// Spellcheck button?
-			if ($context['show_spellchecking'])
-				echo '
-									<input type="button" value="', $txt['spell_check'], '" onclick="spellCheck(\'postmodify\', \'message\', ', (empty($options['use_editor_quick_reply']) ? 'false' : 'true'), ')" tabindex="', $context['tabindex']++, '" />';
-
-			// Draft save button?
-			if (!empty($context['drafts_save']))
-				echo '
-									<input type="button" name="save_draft" value="', $txt['draft_save'], '" onclick="return confirm(' . JavaScriptEscape($txt['draft_save_note']) . ') && submitThisOnce(this);" accesskey="d" tabindex="', $context['tabindex']++, '" />
-									<input type="hidden" id="id_draft" name="id_draft" value="', empty($context['id_draft']) ? 0 : $context['id_draft'], '" />';
-
-			// Show the draft last saved on area
-			if (!empty($context['drafts_autosave']) && !empty($options['drafts_autosave_enabled']))
-				echo '
-									<div class="draftautosave">
-										<span id="throbber" class="hide"><i class="icon icon-spin i-spinner"></i>&nbsp;</span>
-										<span id="draft_lastautosave"></span>
-									</div>';
+		// Spellcheck button?
+		if ($context['show_spellchecking'])
 			echo '
-								</div>
+								<input type="button" value="', $txt['spell_check'], '" onclick="spellCheck(\'postmodify\', \'message\', ', (empty($options['use_editor_quick_reply']) ? 'false' : 'true'), ')" tabindex="', $context['tabindex']++, '" />';
+
+		// Draft save button?
+		if (!empty($context['drafts_save']))
+			echo '
+								<input type="button" name="save_draft" value="', $txt['draft_save'], '" onclick="return confirm(' . JavaScriptEscape($txt['draft_save_note']) . ') && submitThisOnce(this);" accesskey="d" tabindex="', $context['tabindex']++, '" />
+								<input type="hidden" id="id_draft" name="id_draft" value="', empty($context['id_draft']) ? 0 : $context['id_draft'], '" />';
+
+		echo '
 							</div>';
 		}
 		else
 		{
 			echo '
 							', template_control_richedit($context['post_box_name'], 'smileyBox_message', 'bbcBox_message');
-
 			// Show our submit buttons before any more options
 			echo '
 							<div id="post_confirm_buttons" class="submitbutton">
 								', template_control_richedit_buttons($context['post_box_name']), '
 							</div>';
 		}
+
+		// Show the draft last saved on area
+		if (!empty($context['drafts_autosave']) && !empty($options['drafts_autosave_enabled']))
+			echo '
+							<div class="draftautosave">
+								<span id="throbber" class="hide"><i class="icon icon-spin i-spinner"></i>&nbsp;</span>
+								<span id="draft_lastautosave"></span>
+							</div>';
 
 		echo '
 						</form>
@@ -535,9 +535,9 @@ function template_quickreply_below()
 				sImagesUrl: elk_images_url,
 				sContainerId: "quickReplyOptions",
 				sClassId: "quickReplyExpand",
-				sClassCollapsed: "chevricon i-chevron-up",
+				sClassCollapsed: "collapse",
 				sTitleCollapsed: ', JavaScriptEscape($txt['show']), ',
-				sClassExpanded: "chevricon i-chevron-down",
+				sClassExpanded: "expand",
 				sTitleExpanded: ', JavaScriptEscape($txt['hide']), ',
 				sJumpAnchor: "quickreply",
 				bIsFull: ', !empty($options['use_editor_quick_reply']) ? 'true,
@@ -606,13 +606,13 @@ function template_quickreply_below()
 					bShowModify: ', $settings['show_modify'] ? 'true' : 'false', ',
 					iTopicId: ', $context['current_topic'], ',
 					sTemplateBodyEdit: ', JavaScriptEscape('
-						<div id="quick_edit_body_container">
+						<div id="quick_edit_body_container" style="width: 90%;">
 							<div id="error_box" class="errorbox hide"></div>
 							<textarea class="editor" name="message" rows="12" tabindex="' . ($context['tabindex']++) . '">%body%</textarea><br />
 							<div class="submitbutton">
-								<input type="hidden" name="\' + elk_session_var + \'" value="\' + elk_session_id + \'" />
-								<input type="hidden" name="topic" value="' . $context['current_topic'] . '" />
-								<input type="hidden" name="msg" value="%msg_id%" />
+							<input type="hidden" name="\' + elk_session_var + \'" value="\' + elk_session_id + \'" />
+							<input type="hidden" name="topic" value="' . $context['current_topic'] . '" />
+							<input type="hidden" name="msg" value="%msg_id%" />
 								<input type="submit" name="post" value="' . $txt['save'] . '" tabindex="' . ($context['tabindex']++) . '" onclick="return oQuickModify.modifySave(\'' . $context['session_id'] . '\', \'' . $context['session_var'] . '\');" accesskey="s" />' . ($context['show_spellchecking'] ? '
 								<input type="button" value="' . $txt['spell_check'] . '" tabindex="' . ($context['tabindex']++) . '" onclick="spellCheck(\'quickModForm\', \'message\', false);" />' : '') . '
 								<input type="submit" name="cancel" value="' . $txt['modify_cancel'] . '" tabindex="' . ($context['tabindex']++) . '" onclick="return oQuickModify.modifyCancel();" />
@@ -880,14 +880,14 @@ function template_display_attachments($message, $ignoring)
 			if ($attachment['thumbnail']['has_thumb'])
 				echo '
 											<a href="', $attachment['href'], ';image" id="link_', $attachment['id'], '" ', $attachment['thumbnail']['lightbox'], '>
-												<img class="attachment_image" src="', $attachment['thumbnail']['href'], '" alt="" id="thumb_', $attachment['id'], '" />
+												<img class="attachment_image" src="', $attachment['thumbnail']['href'], '" alt="" id="thumb_', $attachment['id'], '" loading="lazy" />
 											</a>';
 			else
 				echo '
-											<img class="attachment_image" src="', $attachment['href'], ';image" alt="" style="max-width:100%; max-height:' . $attachment['height'] . 'px;"/>';
+											<img class="attachment_image" src="', $attachment['href'], ';image" alt="" style="max-width:100%; max-height:' . $attachment['height'] . 'px;" loading="lazy" />';
 		}
 		elseif (!empty($modSettings['attachmentShowImages']))
-			echo '							<img class="attachment_image" src="', $attachment['href'], ';thumb" alt="" style="max-width:' . $modSettings['attachmentThumbWidth'] . 'px; max-height:' . $modSettings['attachmentThumbHeight'] . 'px;" />';
+			echo '							<img class="attachment_image" src="', $attachment['href'], ';thumb" alt="" style="max-width:' . $modSettings['attachmentThumbWidth'] . 'px; max-height:' . $modSettings['attachmentThumbHeight'] . 'px;" loading="lazy" />';
 
 		echo '
 											<a href="', $attachment['href'], '" class="attachment_name">', $attachment['name'] , '</a>
