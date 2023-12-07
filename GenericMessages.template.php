@@ -152,7 +152,7 @@ function template_build_poster_div($message, $ignoring = false)
 			if ($message['member']['website']['url'] != '' && !isset($context['disabled_fields']['website']))
 				$poster_div .= '
 											<li class="cf_icon">
-												<a href="' . $message['member']['website']['url'] . '" title="' . $message['member']['website']['title'] . '" target="_blank" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $message['member']['website']['title'] . '" />' : $txt['www']) . '</a>
+												<a href="' . $message['member']['website']['url'] . '" title="' . $message['member']['website']['title'] . '" target="_blank" rel="noopener noreferrer" class="new_win">' . ($settings['use_image_buttons'] ? '<img src="' . $settings['images_url'] . '/profile/www_sm.png" alt="' . $message['member']['website']['title'] . '" />' : $txt['www']) . '</a>
 											</li>';
 
 			// Don't show the email address if they want it hidden.
@@ -355,7 +355,7 @@ function template_build_poster_div($message, $ignoring = false)
  * Formats a very simple message view (for example search results, list of
  * posts and topics in profile, unapproved, etc.)
  *
- * @param mixed[] $msg associative array contaning the data to output:
+ * @param mixed[] $msg associative array containing the data to output:
  * - class => a class name (mandatory)
  * - counter => Usually a number used as counter next to the subject
  * - title => Usually the subject of the topic (mandatory)
