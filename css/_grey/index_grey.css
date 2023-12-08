@@ -480,6 +480,10 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 	background: #334455;
 }
 
+#menu_nav_scroll {
+	border-top: 10px solid #6699CC;
+}
+
 /* Top Menu */
 /* Level 1 Menu bar: link or button. General styling. */
 #main_menu .linklevel1, #main_menu .linklevel1:link, #main_menu .linklevel1:visited {
@@ -557,6 +561,8 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 	color: #FFFFFD;
 	border-color: #555555;
 	background: #D41A44;
+	border-color: #334455;
+	background: #6699CC;
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
@@ -599,7 +605,8 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 	border: 1px solid transparent;
 	border-bottom: 1px solid #E5E5E5;
 	border-radius: 0;
-	box-shadow: 0.3px 0.5px 0.7px #E4E4E4, 0.4px 0.8px 1px -1.2px #E4E4E4, 1px 2px 2.5px -2.5px #E4E4E4;
+	background: #F4F4F4 linear-gradient(to bottom, #FFFFFD, #E4E4E4);
+	box-shadow: 1px 1px 2px #E5E5E5;
 }
 
 /* Level 1 button hover and focus effects. */
@@ -609,6 +616,7 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 	text-decoration: none;
 	color: #555555;
 	border: 1px solid #C0C0C0;
+	border-top: 1px solid #AFAFAF;
 	border-left: 1px solid #AFAFAF;
 	background: #F0F0F0;
 	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.07) inset;
@@ -677,9 +685,9 @@ sup.bbc_footnotes, sup.bbc_footnotes a {
 /* Hover effects for those buttons. */
 .linklevel1.active:hover, .listlevel1:hover .linklevel1.active,
 #collapse_button .linklevel1:hover, .linklevel1:hover .pm_indicator {
-	color: #555555;
 	border-color: transparent;
-	border-top: 0px solid transparent;
+	color: #555555;
+	border-top: 0px solid;
 
 	background: #E8E8E8;
 	background-image: linear-gradient(to bottom, #E8E8E8, #EFF0F3);
@@ -777,7 +785,7 @@ html[dir="ltr"] .navigate_section li > a {
 	border-color: #AFAFAF;
 	border-top-color: #BBBBBB;
 	background-image: linear-gradient(to bottom, #FCFCFC, #E5E5E4);
-	box-shadow: 0.3px 0.5px 0.7px #E4E4E4, 0.4px 0.8px 1px -1.2px #E4E4E4, 1px 2px 2.5px -2.5px #E4E4E4;
+	box-shadow: 1px 1px 2px #E5E5E5, 0 -1px 0 #E4E4E4 inset;
 }
 
 .buttonlist li:hover {
@@ -788,6 +796,7 @@ html[dir="ltr"] .navigate_section li > a {
 .buttonlist li a.active {
 	color: #FFFFFD;
 	background: #838E9D;
+	box-shadow: 1px 1px 2px #E8E8E8, 0 -1px 0 #838E9D inset;
 }
 
 /* The quick buttons. */
@@ -802,7 +811,7 @@ html[dir="ltr"] .navigate_section li > a {
 	border-color: #AFAFAF;
 	border-top-color: #BBBBBB;
 	background-image: linear-gradient(to bottom, #FCFCFC, #E5E5E4);
-	box-shadow: 0.3px 0.5px 0.7px #E4E4E4, 0.4px 0.8px 1px -1.2px #E4E4E4, 1px 2px 2.5px -2.5px #E4E4E4;
+	box-shadow: 1px 1px 2px #E8E8E8, 0 -1px 0 #838E9D inset;
 }
 
 /*	$PAGELINKS	*/
@@ -1151,13 +1160,21 @@ html[dir="ltr"] .navigate_section li > a {
 	color: #555555;
 }
 
-.inner, .messageContent {
-	border-top-color: #BFBFBF;
+.keyinfo {
+	border-bottom-color: #BFBFBF;
 }
 
 /* All the signatures used in the forum. */
 .signature, .attachments, .custom_fields_above_signature {
 	border-top-color: #BFBFBF;
+}
+
+.new_post_separator:after {
+	border-color: #E4E4E4 transparent;
+}
+
+.new_post_separator:before {
+	border-color: #BBBBBB transparent;
 }
 
 .new_post_separator {
@@ -1221,6 +1238,10 @@ html[dir="ltr"] .navigate_section li > a {
 .statusbar {
 	border-top-color: #A9CCD1;
 	border-bottom-color: #A9CCD1;
+	background: #F1F1F1;
+}
+
+.statusbar .insertoverlay {
 	background: #F1F1F1;
 }
 
@@ -1345,6 +1366,11 @@ html[dir="ltr"] .navigate_section li > a {
 	border-bottom-color: #999999;
 }
 
+.like_stats_details .poster_details {
+	box-shadow: none;
+	background: #FFFFFD;
+}
+
 .ignoreboards a {
 	border-bottom-color: #C4C4C4;
 }
@@ -1362,8 +1388,13 @@ html[dir="ltr"] .navigate_section li > a {
 }
 
 .attachment_name, .attachment_details {
-	border-color: #CCCCCC;
 	background: #F6F8F9 !important;
+	border-color: #CCCCCC;
+}
+
+.attachment_image {
+	--shadow-color: rgba(158, 158, 158, .38);
+	box-shadow: 0.3px 0.5px 0.7px var(--shadow-color), 0.4px 0.8px 1px -1.2px var(--shadow-color), 1px 2px 2.5px -2.5px var(--shadow-color);
 }
 
 #warndiv .ui-widget-header {
@@ -1549,6 +1580,7 @@ html[dir="ltr"] .navigate_section li > a {
 
 .letter_row h3 {
 	border-color: #CCCCCC;
+	background: #6699CC;
 }
 
 /* -------------------------------------------------------
@@ -1692,6 +1724,10 @@ html[dir="ltr"] .navigate_section li > a {
 #recentposts .inner blockquote, #recentposts .messageContent blockquote {
 	overflow: hidden;
 	height: 5em;
+}
+
+#recentposts .inner {
+	border-top-color: transparent;
 }
 
 /* floating error box */

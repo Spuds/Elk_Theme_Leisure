@@ -44,173 +44,19 @@
  *		$MEDIA...............Experimental media queries.
  * -------------------------------------------------------
  */
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-html {
-	line-height: 1.15;
-	-webkit-text-size-adjust: 100%
-}
+html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
 
-body {
-	margin: 0
-}
-
-main {
-	display: block
-}
-
-h1 {
-	font-size: 2em;
-	margin: .67em 0
-}
-
-hr {
-	overflow: visible;
-	box-sizing: content-box;
-	height: 0;
-}
-
-pre {
-	font-family: monospace, monospace;
-	font-size: 1em
-}
-
-a {
-	background-color: transparent
-}
-
-abbr[title] {
-	text-decoration: underline;
-	text-decoration: underline dotted;
-	border-bottom: none;
-}
-
-b, strong {
-	font-weight: bolder
-}
-
-code, kbd, samp {
-	font-family: monospace, monospace;
-	font-size: 1em
-}
-
-small {
-	font-size: 80%
-}
-
-sub, sup {
-	font-size: 75%;
-	line-height: 0;
-	position: relative;
-	vertical-align: baseline
-}
-
-sub {
-	bottom: -.25em
-}
-
-sup {
-	top: -.5em
-}
-
-img {
-	border-style: none
-}
-
-button, input, optgroup, select, textarea {
-	font-family: inherit;
-	font-size: 100%;
-	line-height: 1.15;
-	margin: 0
-}
-
-button, input {
-	overflow: visible
-}
-
-button, select {
-	text-transform: none
-}
-
-[type=button], [type=reset], [type=submit], button {
-	-webkit-appearance: button
-}
-
-[type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner, button::-moz-focus-inner {
-	padding: 0;
-	border-style: none;
-}
-
-[type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring, button:-moz-focusring {
-	outline: 1px dotted ButtonText
-}
-
-fieldset {
-	padding: .35em .75em .625em
-}
-
-legend {
-	display: table;
-	box-sizing: border-box;
-	max-width: 100%;
-	padding: 0;
-	white-space: normal;
-	color: inherit;
-}
-
-progress {
-	vertical-align: baseline
-}
-
-textarea {
-	overflow: auto
-}
-
-[type=checkbox], [type=radio] {
-	box-sizing: border-box;
-	padding: 0
-}
-
-[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
-	height: auto
-}
-
-[type=search] {
-	outline-offset: -2px;
-	-webkit-appearance: textfield;
-}
-
-[type=search]::-webkit-search-decoration {
-	-webkit-appearance: none
-}
-
-::-webkit-file-upload-button {
-	font: inherit;
-	-webkit-appearance: button;
-}
-
-details {
-	display: block
-}
-
-summary {
-	display: list-item
-}
-
-template {
-	display: none
-}
-
-[hidden] {
-	display: none
-}
-
-/*
+/* -------------------------------------------------------
+ *	$GENERAL
+ * -------------------------------------------------------
  * Put this here to make it easy to find.
  * Width control for top bar, header, main content and footer content.
  */
 .wrapper {
 	/* Next controls forum width, when it is not set in admin. */
-	width: 100%;
+	width: 100% !important;
 	/* Next limits maximum width on wide screens. */
 	/* Sized in em, since some people require larger text. */
 	/* For ease of reading, content really should not be too wide. */
@@ -222,9 +68,10 @@ template {
  *	$GENERAL
  * -------------------------------------------------------
  */
+
 /* Normal, standard links. */
 a, a:link, a:visited,
-	/* Links that open in a new window. */
+/* Links that open in a new window. */
 a.new_win:link, a.new_win:visited {
 	text-decoration: none;
 }
@@ -292,8 +139,10 @@ form, input, button, select, textarea,
 	padding: 0;
 }
 
-/* Fieldsets are used to group elements. */
-/* Declaring as overflow: auto; is probably a good idea. Test for teh bugz. */
+/* Fieldsets are used to group elements.
+ * @todo - Can we do this by class? What about default styling? Needed?
+ * Declaring as overflow: auto; is probably a good idea.
+ */
 fieldset {
 	overflow: auto;
 	margin: 5px 0;
@@ -445,7 +294,7 @@ input[type="checkbox"], input[type="radio"] {
 	font-size: 1em;
 	font-weight: normal;
 	box-sizing: border-box;
-	margin: 2px 2px 0;
+	margin: -2px 2px 0;
 	padding: 0;
 	vertical-align: middle;
 	border: none;
@@ -488,7 +337,7 @@ input[type="submit"]:hover, button[type="submit"]:hover, input[type="button"]:ho
 }
 
 /* Don't show disabled buttons as active on hover */
-input[type="submit"][disabled]:hover, button[disabled], button[disabled]:hover {
+input[type=submit][disabled]:hover, button[disabled], button[disabled]:hover {
 	border: 1px solid;
 }
 
@@ -1439,6 +1288,7 @@ a.bbc_link {
 #upper_container {
 	line-height: 80px;
 	width: 100%;
+	max-width: 100%;
 	height: 80px;
 	padding: 0 2%;
 }
@@ -1489,10 +1339,11 @@ a.bbc_link {
 
 /* Main forum area. */
 #wrapper {
-	margin: 0.5em auto 0.1em auto;
+	margin: .5em 1em .1em 0;
 	padding: 5px;
 	border: 1px solid;
 	border-radius: 4px;
+	min-height: calc(100vh - 120px);
 }
 
 /* The user info, news, etc.*/
@@ -1503,6 +1354,9 @@ a.bbc_link {
 	vertical-align: top;
 }
 
+#news .bbc_link {
+	display: inline;
+}
 #news > span {
 	float: left;
 	margin: 0.5em 1em 0 0;
@@ -1524,9 +1378,6 @@ a.bbc_link {
 	border: 1px solid;
 }
 
-#news .bbc_link {
-	display: inline;
-}
 
 #elkFadeScroller {
 	margin-left: 4em;
@@ -1604,7 +1455,6 @@ a.bbc_link {
 	top: 0;
 	width: 100%;
 	height: 45px;
-	border-top: 10px solid #6699CC;
 }
 
 #main_menu {
@@ -1714,9 +1564,9 @@ a.bbc_link {
 	top: -1em;
 	right: -0.4em;
 	float: left;
-	padding: 0 0.6em;
+	padding: 0 .6em 2px .6em;
 	border: 1px solid;
-	border-radius: 0;
+	border-radius: 50%;
 }
 
 /* Wrapper for primary admin/profile/etc menus. */
@@ -1821,6 +1671,7 @@ a.bbc_link {
 .linklevel1.active:hover, .listlevel1:hover .linklevel1.active,
 #collapse_button .linklevel1:hover, .linklevel1:hover .pm_indicator {
 	border: 1px solid;
+	border-top: 0px solid;
 }
 
 .linklevel1.active:hover .pm_indicator {
@@ -2206,7 +2057,7 @@ nav > .quickbuttons {
 
 .quickbuttons .inline_mod_check {
 	height: 29px;
-	padding: 0 4px;
+	padding: 2px 4px;
 	border: 1px solid;
 }
 
@@ -2322,11 +2173,11 @@ nav > .quickbuttons {
 	background-position: 0 -360px;
 }
 
-.like_button:before {
+.like_button:before, .react_button:before {
 	background-position: 0 -384px;
 }
 
-.unlike_button:before {
+.unlike_button:before, .unreact_button:before {
 	background-position: 0 -408px;
 }
 
@@ -2338,7 +2189,7 @@ nav > .quickbuttons {
 	background-position: 0 -456px;
 }
 
-.likes_button:before {
+.likes_button:before, .reacts_button:before {
 	background-position: 0 -480px;
 }
 
@@ -2353,12 +2204,11 @@ nav > .quickbuttons {
 	padding: 1px 6px 0 6px;
 }
 
-/* Radius left end of the first (Quote) button. */
+/* Radius the ends of the first/last button. */
 .quickbuttons li:last-child, .quickbuttons li:last-child a {
 	border-radius: 0;
 }
 
-/* Radius right end of the last button. */
 .quickbuttons li:first-child, .quickbuttons li:first-child a {
 	border-radius: 0;
 }
@@ -2387,15 +2237,16 @@ nav > .quickbuttons {
 }
 
 /* Show appropriate like/unlike action */
+.like_button:before, .likes_button:before, .unlike_button:before,
 .react_button:before, .reacts_button:before, .unreact_button:before {
 	background-position: 0 -480px;
 }
 
-.unreact_button:before {
+.unlike_button:before, .unreact_button:before  {
 	background-position: 0 -408px;
 }
 
-.react_button:hover:before {
+.like_button:hover:before, .react_button:before  {
 	background-position: 0 -384px;
 }
 
@@ -2484,7 +2335,7 @@ nav > .quickbuttons {
 
 .pagelinks .current_page {
 	font-weight: bolder;
-	padding: 1px 8px 1px 8px;
+	padding: 1px 8px;
 }
 
 .expand_pages {
@@ -2763,6 +2614,8 @@ dl.settings {
 .board_row {
 	position: relative;
 	padding: 14px 0 11px 0;
+	display: table;
+	width: 100%;
 }
 
 .board_row_contain {
@@ -2828,7 +2681,7 @@ dl.settings {
 
 .board_stats {
 	float: right;
-	margin-top: -4em;
+	margin-top: -4.5em;
 	margin-right: -1em;
 }
 
@@ -2920,6 +2773,10 @@ dl.settings {
 }
 
 /* Styles for the info center on the board index. */
+#upshrinkHeaderIC {
+	display: flex;
+}
+
 #upshrinkHeaderIC .board_row {
 	padding: 8px 12px;
 }
@@ -2927,7 +2784,8 @@ dl.settings {
 #upshrinkHeaderIC > li {
 	float: left;
 	width: 33.3%;
-	min-height: 21em;
+	min-height: 20em;
+	flex: 1;
 }
 
 .ic_section_header {
@@ -3077,7 +2935,6 @@ img.new_posts {
 
 .action_viewquery .explain {
 	font-family: serif;
-	/*border="1" cellpadding="4" cellspacing="0"*/
 	margin-bottom: 1em;
 	empty-cells: show;
 	border-collapse: collapse;
@@ -3330,8 +3187,8 @@ img.new_posts {
 	height: 1.15em;
 	content: "";
 	vertical-align: middle;
-	background-image: url(../images/topic/topicicons.png);
-	background-repeat: no-repeat;
+	/*background-image: url(../images/topic/topicicons.png);
+	background-repeat: no-repeat;*/
 }
 
 .topicicon:before {
@@ -3652,13 +3509,17 @@ img.new_posts {
 	font-size: 1em;
 	overflow: visible;
 	min-height: 18em;
-	margin: 0.5em 0 0 0;
+	margin: 0.4em 0;
 	border: 1px solid;
 	border-radius: 0;
 }
 
 .forumposts .content:first-child {
 	margin: 0;
+}
+
+.editor_wrapper .content {
+	min-height: 1em !important;
 }
 
 /* Poster details and list of items */
@@ -3771,7 +3632,7 @@ img.new_posts {
 .poster .listlevel1.sfhover .menulevel2, .poster .listlevel1:hover .menulevel2 {
 	top: -7px;
 	left: -2px;
-	width: 30em;
+	width: 32em;
 	padding: 6px 1em 4px 1em;
 	text-align: left;
 }
@@ -3874,6 +3735,14 @@ img.new_posts {
 	display: inline;
 }
 
+.listlevel2.poster_ip .help {
+	max-width: 50%;
+	overflow: hidden;
+	word-wrap: normal;
+	vertical-align: middle;
+	text-overflow: ellipsis;
+}
+
 .avatar {
 	width: auto;
 	max-width: 13em;
@@ -3906,6 +3775,10 @@ img.new_posts {
 	clear: both;
 	width: 100%;
 	height: auto;
+}
+
+.post_wrapper:first-of-type {
+	margin-top: .1em;
 }
 
 .postarea {
@@ -4026,7 +3899,8 @@ img.new_posts {
 	display: block;
 	overflow: hidden;
 	width: 18em;
-	padding: 0 0.5em;
+	margin: 0 auto;
+	padding: 0 .5em;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	border: solid 1px;
@@ -6429,7 +6303,7 @@ a.help .icon {
 	margin: 0;
 	padding: 10px 0 0;
 	text-align: center;
-	border: 1px solid;
+	border: solid 1px;
 	border-radius: 0;
 }
 
@@ -6767,6 +6641,7 @@ a > i {
 
 	.board_row_contain {
 		padding-right: 5px;
+		min-height: auto;
 	}
 
 	.bbc_img, .elk_video {
@@ -6802,6 +6677,9 @@ a > i {
 	#news {
 		clear: left;
 	}
+	.img_last_post {
+		display: none;
+	}
 }
 
 /* This one does 880 screens at default font size. */
@@ -6820,10 +6698,34 @@ a > i {
 	#board_main_content_section {
 		margin: 0;
 	}
+
+	#menu_nav_scroll {
+		position: relative;
+		border-top: 0;
+		height: 100%;
+		padding: 0;
+		border-top: none !important;
+	}
 }
 
 /* This one does 800 screens at default font size. */
 @media screen and (max-width: 50em) {
+	.hide {
+		display: none !important;
+	}
+
+	#forumtitle {
+		font-size: 1.75em;
+	}
+
+	.quoteheader, .keyinfo, .quote-read-more {
+		overflow: hidden;
+	}
+
+	.post_separator {
+		display: block;
+	}
+
 	#gotop, #gobottom {
 		display: none;
 	}
@@ -6840,8 +6742,13 @@ a > i {
 		width: 30%;
 	}
 
+	#upshrinkHeaderIC {
+		flex-wrap: wrap;
+	}
+
 	#upshrinkHeaderIC > li {
 		width: 100% !important;
+		min-width: 100% !important;
 		min-height: unset;
 	}
 
@@ -6855,10 +6762,6 @@ a > i {
 		display: none;
 	}
 
-	.img_last_post {
-		display: none;
-	}
-
 	dd input, dd select, dd textarea {
 		width: 100% !important;
 		max-width: 100% !important;
@@ -6868,7 +6771,7 @@ a > i {
 		max-width: 30% !important;
 	}
 
-	dd .input_check, dd .input_radio {
+	dd input[type="checkbox"], dd input[type="radio"] {
 		display: inline !important;
 		width: 1.5em !important;
 	}
@@ -6955,20 +6858,37 @@ a > i {
 	}
 
 	.board_row {
-		min-width: 20em;
+		display: flex;
+	}
+
+	.board_lastpost {
+		float: none;
 	}
 
 	.board_name {
 		margin: 12px 0 0;
 	}
 
-	.board_lastposter {
-		display: block;
+	.board_info .board_description, .board_info .moderators, .childboards {
+		margin: 0 0 0 8px;
 	}
 
-	.board_lastpost, .board_latest {
-		width: 17em;
-		min-width: 17em;
+	.board_info, .board_latest {
+		flex: 0 0 auto;
+	}
+
+	.board_info, .board_latest {
+		min-width: 55%;
+		width: 55%;
+	}
+
+	.board_latest {
+		min-width: 45%;
+		width: 45%;
+	}
+
+	.board_lastposter {
+		display: block;
 	}
 
 	.board_name:after {
@@ -6976,11 +6896,6 @@ a > i {
 		clear: both;
 		content: "";
 	}
-
-	.board_info .board_description, .board_info .moderators, .childboards {
-		margin: 0 0 0 8px;
-	}
-
 	#topic_icons {
 		display: none;
 	}
@@ -7064,7 +6979,7 @@ a > i {
 	}
 
 	#forumposts .nextlinks {
-		width: 100%;
+		width: 50%;
 		text-align: right;
 		white-space: normal;
 	}
@@ -7130,11 +7045,15 @@ a > i {
 
 	.sticky_row > .topic_info > .topic_starter,
 	.locked_row > .topic_info > .topic_starter {
-		margin-left: 18px;
+		margin-left: 0;
 	}
 
 	.sticky_row.locked_row > .topic_info > .topic_starter {
-		margin-left: 32px;
+		margin-left: 0;
+	}
+
+	.sticky_row .topic_name {
+		margin-left: -18px;
 	}
 
 	.topic_name, .topic_starter {
@@ -7190,8 +7109,8 @@ a > i {
 	}
 
 	dd input, dd select, dd textarea {
-		width: 90% !important;
-		max-width: 90% !important;
+		width: 89% !important;
+		max-width: 89% !important;
 	}
 
 	#postAttachment2 dt {
@@ -7208,7 +7127,7 @@ a > i {
 
 	#wrapper, .frame {
 		width: 100%;
-		min-width: 400px;
+		min-width: 100%;
 	}
 
 	#main_content_section {
@@ -7219,6 +7138,9 @@ a > i {
 		width: 7em;
 	}
 
+	#collapse_button {
+		display: none;
+	}
 	.post {
 		margin: 0 0 0 5px;
 	}
@@ -7245,6 +7167,10 @@ a > i {
 		display: none;
 	}
 
+	.board_row {
+		flex-wrap: wrap;
+	}
+
 	.topic_latest {
 		display: block;
 		width: 97%;
@@ -7258,8 +7184,9 @@ a > i {
 	}
 
 	.pagelinks {
-		/* Necessary for some browsers to keep the pages all on the same line */
+		float: none;
 		min-width: 100%;
+		/* Necessary for some browsers to keep the pages all on the same line */
 		height: 30px;
 	}
 
@@ -7335,7 +7262,7 @@ a > i {
 	}
 
 	.avatar, .avatar.avatarresize {
-		width: 40px;
+		max-width: 40px;
 		max-height: 60px;
 	}
 
@@ -7348,8 +7275,29 @@ a > i {
 		width: initial !important;
 	}
 
+	.drop_area .mobile .drop_area_fileselect_text {
+		display: inline-block;
+		width: 95%;
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+
+	.drop_area .mobile {
+		display: inline-block;
+		width: 80%;
+		border: none;
+	}
+
+	.drop_area_fileselect {
+		height: 3.5em !important;
+	}
+
+	.drop_area .desktop {
+		display: none;
+	}
+
 	#forumposts .content {
-		padding: 5px;
+		padding: 5px 0;
 	}
 
 	#forumposts h2 img {
@@ -7372,7 +7320,7 @@ a > i {
 
 	.board_row {
 		margin-top: 3px;
-		padding: 15px 0;
+		padding: 8px 0 10px 0;
 	}
 
 	.board_info .board_description, .board_info .moderators {
@@ -7413,7 +7361,7 @@ a > i {
 	}
 
 	.board_lastpost, .topic_lastpost {
-		min-width: 18em;
+		min-width: 100%;
 	}
 
 	.board_lastpost {
@@ -7448,7 +7396,6 @@ a > i {
 
 	.lastpost_link, .board_lastposter {
 		font-size: 1.071em;
-		display: inline;
 	}
 
 	.recentboard, .recentposter {
@@ -7482,6 +7429,7 @@ a > i {
 	}
 
 	.admin_menu li {
+		display: block;
 		float: left;
 		width: 48%;
 	}
@@ -7744,7 +7692,7 @@ a > i {
 	}
 
 	.board_icon {
-		margin-top: -6px !important;
+		margin-top: -7px !important;
 	}
 
 	.topicicon {
@@ -7781,6 +7729,10 @@ a > i {
 		display: block;
 	}
 
+	.navigate_section li:first-child > a {
+		padding-left: 0;
+	}
+
 	.navigate_section {
 		clear: both;
 		padding-right: 5px;
@@ -7792,6 +7744,7 @@ a > i {
 
 	.topic_info {
 		font-size: 0.9em;
+		padding: 10px 5px;
 	}
 
 	#button_admin {
@@ -7812,10 +7765,16 @@ a > i {
 
 	dt, dd, dd label, .login dt, #advanced_search dt {
 		width: 100% !important;
+		margin: 0 !important;
 	}
 
 	dd {
 		padding-left: 4% !important;
+	}
+
+	/* Override the previous for charts in the stats page */
+	.statsbar {
+		padding-left: 0 !important;
 	}
 
 	dd input, dd select, dd textarea {
@@ -7847,19 +7806,19 @@ a > i {
 		max-height: none;
 	}
 
-	.fa.hamburger_30 {
+	.fa.hamburger_30, .icon.hamburger_30 {
 		display: inline-block;
 		padding-top: 0.1em;
 		cursor: pointer;
 		vertical-align: middle;
 	}
 
-	.fa.hamburger_30:before {
+	.fa.hamburger_30:before,.icon.hamburger_30:before {
 		margin: 0.2em;
 	}
 
 	#display_jump_to {
-		display: inline-block;
+		display: none;
 	}
 
 	.hide_30.hamburger_30_target {
@@ -7867,7 +7826,7 @@ a > i {
 		left: -9999px;
 	}
 
-	.fa.hamburger_30.visible {
+	.fa.hamburger_30.visible, .icon.hamburger_30.visible  {
 		display: none;
 	}
 
@@ -7883,6 +7842,10 @@ a > i {
 
 /* This one does 360px screens at default font size. */
 @media screen and (max-width: 22.5em) {
+	a.sceditor-button-space {
+		display: none;
+	}
+
 	html {
 		min-width: 360px;
 	}

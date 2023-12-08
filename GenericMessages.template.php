@@ -209,20 +209,21 @@ function template_build_poster_div($message, $ignoring = false)
 	if (!empty($context['can_moderate_forum']) && !empty($message['member']['ip']))
 		$poster_div .= '
 									<li class="listlevel2 poster_ip">
-										<a class="linklevel2 help" href="' . $scripturl . '?action=' . (!empty($message['member']['is_guest']) ? 'trackip' : 'profile;area=history;sa=ip;u=' . $message['member']['id'] . ';searchip=' . $message['member']['ip']) . '"><img src="' . $settings['images_url'] . '/ip.png" alt="" /> ' . $message['member']['ip'] . '</a>
-										<a class="linklevel2 help" href="' . $scripturl . '?action=quickhelp;help=see_admin_ip" onclick="return reqOverlayDiv(this.href);"><img src="' . $settings['images_url'] . '/helptopics.png" alt="(?)" /></a>
+												<a class="linklevel2 help" title="' . $message['member']['ip'] . '" href="' . $scripturl . '?action=' . (!empty($message['member']['is_guest']) ? 'trackip' : 'profile;area=history;sa=ip;u=' . $message['member']['id'] . ';searchip=' . $message['member']['ip']) . '">' . $message['member']['ip'] . '</a>
+												<a class="helpicon i-help" href="' . $scripturl . '?action=quickhelp;help=see_admin_ip" onclick="return reqOverlayDiv(this.href);"></a>
 									</li>';
 	// Or, should we show it because this is you?
 	elseif ($message['can_see_ip'] && !empty($message['member']['ip']))
 		$poster_div .= '
 									<li class="listlevel2 poster_ip">
-										<a class="linklevel2 help" href="' . $scripturl . '?action=quickhelp;help=see_member_ip" onclick="return reqOverlayDiv(this.href);"><img src="' . $settings['images_url'] . '/ip.png" alt="" /> ' . $message['member']['ip'] . '</a>
+												<a class="linklevel2 help" title="' . $message['member']['ip'] . '" href="#" onclick="return false;">' . $message['member']['ip'] . '</a>
+												<a class="linklevel2 helpicon i-help"  title="' . $message['member']['ip'] . '" href="' . $scripturl . '?action=quickhelp;help=see_member_ip" onclick="return reqOverlayDiv(this.href);"><s>' . $txt['help'] . '</s></a>
 									</li>';
 	// Okay, are you at least logged in?  Then we can show something about why IPs are logged...
 	elseif (!$context['user']['is_guest'])
 		$poster_div .= '
 									<li class="listlevel2 poster_ip">
-										<a class="linklevel2 help" href="' . $scripturl . '?action=quickhelp;help=see_member_ip" onclick="return reqOverlayDiv(this.href);">' . $txt['logged'] . '</a>
+												<a class="linklevel2 helpicon i-help" href="' . $scripturl . '?action=quickhelp;help=see_member_ip" onclick="return reqOverlayDiv(this.href);"><s>' . $txt['help'] . '</s></a>' . $txt['logged'] . '
 									</li>';
 	// Otherwise, you see NOTHING!
 	else
@@ -240,7 +241,6 @@ function template_build_poster_div($message, $ignoring = false)
 				</li>';
 	else
 		$poster_div .= '
-								</li>
 							</ul>
 						</li>';
 
@@ -250,9 +250,9 @@ function template_build_poster_div($message, $ignoring = false)
 		if (!empty($message['member']['id']))
 		{
 			$poster_div .= '
-								<li class="listlevel1 name"><a href="' . $scripturl . '?action=profile;u=' . $message['member']['id'] . '">
-									' . $message['member']['name'] . '
-								</a></li>';
+						<li class="listlevel1 name">
+							<a href="' . $scripturl . '?action=profile;u=' . $message['member']['id'] . '">' . $message['member']['name'] . '</a>
+						</li>';
 		}
 		else
 		{

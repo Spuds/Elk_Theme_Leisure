@@ -122,7 +122,7 @@ function template_messages()
 
 		// Show the message anchor and a "new" anchor if this message is new.
 		echo '
-				<section class="post_wrapper', $message['classes'], $message['approved'] ? ($message['alternate'] == 0 ? ' content' : ' content') : ' approvebg', '">', $message['id'] != $context['first_message'] ? '
+				<section class="post_wrapper ', $message['classes'], $message['approved'] ? ($message['alternate'] == 0 ? ' content' : ' content') : ' approvebg', '">', $message['id'] != $context['first_message'] ? '
 					<a class="post_anchor" id="msg' . $message['id'] . '"></a>' . ($message['first_new'] ? '<a id="new"></a>' : '') : '';
 
 		// Showing the sidebar posting area?
@@ -218,8 +218,7 @@ function template_messages()
 		if ($message['can_modify'] || ($context['can_report_moderator']))
 			echo '
 							<li class="listlevel1 subsections" aria-haspopup="true">
-								<a href="#" ', !empty($options['use_click_menu']) ? '' : 'onclick="event.stopPropagation();return false;" ', 'class="linklevel1 post_options">', $txt['post_options'], '
-							</a>';
+								<a href="#" ', !empty($options['use_click_menu']) ? '' : 'onclick="event.stopPropagation();return false;" ', 'class="linklevel1 post_options">', $txt['post_options'], '</a>';
 
 		if ($message['can_modify'] || $message['can_remove'] || !empty($context['can_follow_up']) || ($context['can_split'] && !empty($context['real_num_replies'])) || $context['can_restore_msg'] || $message['can_approve'] || $message['can_unapprove'] || $context['can_report_moderator'])
 		{
@@ -415,16 +414,16 @@ function template_quickreply_below()
 	{
 		echo '
 			<a id="quickreply"></a>
-			<div class="forumposts" id="quickreplybox">
-				<h2 class="category_header">
-					<span id="category_toggle">&nbsp;
+			<div id="quickreplybox">
+				<h2 class="category_header category_toggle">
+					<span>
 						<a href="javascript:oQuickReply.swap();">
-							<span id="quickReplyExpand" class="', empty($context['minmax_preferences']['qreply']) ? 'collapse' : 'expand', '" title="', $txt['hide'], '"></span>
+							<i id="quickReplyExpand" class="chevricon i-chevron-', empty($context['minmax_preferences']['qreply']) ? 'up' : 'down', '" title="', $txt['hide'], '"></i>
 						</a>
 					</span>
 					<a href="javascript:oQuickReply.swap();">', $txt['quick_reply'], '</a>
 				</h2>
-				<div id="quickReplyOptions" class="forumposts', empty($context['minmax_preferences']['qreply']) ? '"' : ' hide"', '>
+				<div id="quickReplyOptions" class="forumposts content', empty($context['minmax_preferences']['qreply']) ? '"' : ' hide"', '>
 					<div class="editor_wrapper">
 						', $context['is_locked'] ? '<p class="alert smalltext">' . $txt['quick_reply_warning'] . '</p>' : '',
 		$context['oldTopicError'] ? '<p class="alert smalltext">' . sprintf($txt['error_old_topic'], $modSettings['oldTopicDays']) . '</p>' : '', '
@@ -480,27 +479,28 @@ function template_quickreply_below()
 								<input type="button" name="save_draft" value="', $txt['draft_save'], '" onclick="return confirm(' . JavaScriptEscape($txt['draft_save_note']) . ') && submitThisOnce(this);" accesskey="d" tabindex="', $context['tabindex']++, '" />
 								<input type="hidden" id="id_draft" name="id_draft" value="', empty($context['id_draft']) ? 0 : $context['id_draft'], '" />';
 
+			// Show the draft last saved on area
+			if (!empty($context['drafts_autosave']) && !empty($options['drafts_autosave_enabled']))
 		echo '
+									<div class="draftautosave">
+										<span id="throbber" class="hide"><i class="icon icon-spin i-spinner"></i>&nbsp;</span>
+										<span id="draft_lastautosave"></span>
+									</div>';
+			echo '
+								</div>
 							</div>';
 		}
 		else
 		{
 			echo '
 							', template_control_richedit($context['post_box_name'], 'smileyBox_message', 'bbcBox_message');
+
 			// Show our submit buttons before any more options
 			echo '
 							<div id="post_confirm_buttons" class="submitbutton">
 								', template_control_richedit_buttons($context['post_box_name']), '
 							</div>';
 		}
-
-		// Show the draft last saved on area
-		if (!empty($context['drafts_autosave']) && !empty($options['drafts_autosave_enabled']))
-			echo '
-							<div class="draftautosave">
-								<span id="throbber" class="hide"><i class="icon icon-spin i-spinner"></i>&nbsp;</span>
-								<span id="draft_lastautosave"></span>
-							</div>';
 
 		echo '
 						</form>
@@ -535,9 +535,9 @@ function template_quickreply_below()
 				sImagesUrl: elk_images_url,
 				sContainerId: "quickReplyOptions",
 				sClassId: "quickReplyExpand",
-				sClassCollapsed: "collapse",
+				sClassCollapsed: "chevricon i-chevron-up",
 				sTitleCollapsed: ', JavaScriptEscape($txt['show']), ',
-				sClassExpanded: "expand",
+				sClassExpanded: "chevricon i-chevron-down",
 				sTitleExpanded: ', JavaScriptEscape($txt['hide']), ',
 				sJumpAnchor: "quickreply",
 				bIsFull: ', !empty($options['use_editor_quick_reply']) ? 'true,

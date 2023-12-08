@@ -9,7 +9,7 @@
  * copyright:	2011 Simple Machines (http://www.simplemachines.org)
  * license:  	BSD, See included LICENSE.TXT for terms and conditions.
  *
- * @version 1.1.9
+ * @version 1.1.10
  *
  */
 
@@ -167,7 +167,7 @@ function template_html_above()
 	if (!empty($context['robot_no_index']))
 		echo '
 	<meta name="robots" content="noindex" />';
-	
+
 	// If we have any Open Graph data, here is where is inserted.
 	if (!empty($context['open_graph']))
 	{
@@ -185,7 +185,7 @@ function template_html_above()
 
 	// Show all the relative links, such as help, search, contents, and the like.
 	echo '
-	<link rel="shortcut icon" sizes="196x196" href="' . $settings['images_url'] . '/mobile.png?v=2" />
+	<link rel="shortcut icon" sizes="196x196" href="' . $context['favicon'] . '" />
 	<link rel="help" href="', $scripturl, '?action=help" />
 	<link rel="contents" href="', $scripturl, '" />', ($context['allow_search'] ? '
 	<link rel="search" href="' . $scripturl . '?action=search" />' : '');
@@ -233,11 +233,6 @@ function template_html_above()
 
 	// load in any javascript files from addons and themes
 	theme()->template_inlinecss();
-
-	// Ebay Partner
-	echo '
-	<script>window._epn = {campaign:5338164441, smartPopover:false};</script>
-	<script async src="//www.ltvforum.com/themes/default/scripts/epn-smart-tools.min.js"></script>';
 
 	// Output any remaining HTML headers. (from addons, maybe?)
 	echo $context['html_headers'];
@@ -471,7 +466,7 @@ function template_html_below()
 
 	// load in any javascript that could be deferred to the end of the page
 	theme()->template_javascript(true);
-	
+
 	// Schema microdata about the organization?
 	if (!empty($context['smd_site']))
 	{
@@ -563,6 +558,7 @@ function template_menu()
 	$replacement = array(
 		'i-home' => '&#xf015;',
 		'i-forum' => '&#xf0c0;',
+		'i-spgroup' => '&#xf19c',
 		'i-cog' => '&#xf013;',
 		'i-account' => '&#xf007;',
 		'i-envelope' => '&#xf0e0;',
@@ -759,12 +755,8 @@ function template_basicicons_legend()
 
 	echo '
 		<p class="floatleft">', !empty($modSettings['enableParticipation']) && $context['user']['is_logged'] ? '
-			<span class="topicicon img_profile"></span>' . $txt['participation_caption'] : '<span class="topicicon img_normal"> </span>' . $txt['normal_topic'], '<br />
-			' . (!empty($modSettings['pollMode']) ? '<span class="topicicon img_poll"> </span>' . $txt['poll'] : '') . '
-		</p>
-		<p>
-			<span class="topicicon img_locked"> </span>' . $txt['locked_topic'] . '<br />
-			<span class="topicicon img_sticky"> </span>' . $txt['sticky_topic'] . '<br />
+			<span class="topicicon img_profile"></span>' . $txt['participation_caption'] : '<span class="topicicon img_normal"> </span>' . $txt['normal_topic'], '
+			' . (!empty($modSettings['pollMode']) ? '<span class="icon i-poll"> </span>' . $txt['poll'] : '') . '
 		</p>';
 }
 
@@ -895,7 +887,11 @@ function template_news_fader()
 		</ul>';
 
 	addInlineJavascript('
-		$(\'#elkFadeScroller\').Elk_NewsFader(' . (empty($settings['newsfader_time']) ? '' : '{\'iFadeDelay\': ' . $settings['newsfader_time'] . '}') . ');', true);
+		document.addEventListener("DOMContentLoaded", () => {
+		if (typeof Elk_NewsFader !== \'undefined\') {
+			$(\'#elkFadeScroller\').Elk_NewsFader(' . (empty($settings['newsfader_time']) ? '' : '{\'iFadeDelay\': ' . $settings['newsfader_time'] . '}') . ');
+}
+		});', true);
 }
 
 /**
@@ -937,6 +933,7 @@ function template_member_email($member, $text = false)
 			{
 				return '<a class="linkbutton" href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '">' . $txt['email'] . '</a>';
 			}
+
 			if ($member['show_email'] === 'yes_permission_override' || $member['show_email'] === 'yes')
 			{
 				return '<a class="linkbutton" href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '">' . $member['email'] . '</a>';
@@ -952,6 +949,7 @@ function template_member_email($member, $text = false)
 			{
 				return '<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '" class="icon i-envelope-o' . ($member['online']['is_online'] ? '' : '-blank') . '" title="' . $txt['email'] . ' ' . $member['name'] . '"><s>' . $txt['email'] . ' ' . $member['name'] . '</s></a>';
 			}
+
 			return '<i class="icon i-envelope-o" title="' . $txt['email'] . ' ' . $txt['hidden'] . '"><s>' . $txt['email'] . ' ' . $txt['hidden'] . '</s></i>';
 		}
 	}
