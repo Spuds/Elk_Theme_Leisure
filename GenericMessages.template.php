@@ -110,7 +110,7 @@ function template_build_poster_div($message, $ignoring = false)
 									<li class="listlevel2 gender">' . $txt['gender'] . ': ' . $message['member']['gender']['image'] . '</li>';
 
 		// Show their personal text?
-		if (!empty($settings['show_blurb']) && $message['member']['blurb'] != '')
+		if (!empty($settings['show_blurb']) && !empty($message['member']['blurb']))
 			$poster_div .= '
 									<li class="listlevel2 blurb">' . $message['member']['blurb'] . '</li>';
 

@@ -469,7 +469,7 @@ fieldset dl {
 
 .features p {
 	overflow: auto;
-	min-height: 56px;
+	min-height: 7em;
 	margin: 0 105px;
 	padding: 0;
 }
